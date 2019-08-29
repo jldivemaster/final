@@ -1,6 +1,5 @@
 import React from 'react'
 import NoteTab from './NoteTab'
-// import Note from './Note'
 import PropTypes from 'prop-types'
 
 

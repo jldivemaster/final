@@ -43,6 +43,11 @@
   color: white;
 }
 
+.profile-tab {
+  position: relative;
+  left: 150px;
+}
+
 .tab-list {
   border-bottom: 1px solid #ccc;
   padding-left: 0;
@@ -50,6 +55,7 @@
 
 .tab-list-item {
   display: inline-block;
+  min-width: 15vh;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   list-style: none;

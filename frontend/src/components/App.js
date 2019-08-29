@@ -4,12 +4,6 @@ import Header from './Header'
 import Main from './Main'
 import UserProfile from './UserProfile'
 import NoteList from './NoteList'
-import LoginScreen from './LoginScreen'
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-// injectTapEventPlugin();
-
 
 //========== Temp seed data===============
 const user = { name: "Jason Leach", email: "asdf@gmail.com", current_mod: 4, location: "Seattle"}
@@ -37,16 +31,16 @@ const data = [
 function App() {
   return (
     <div className="App">
-      <p>App.js</p>
       <header className="App-header">
        <Header />
-
       </header>
+
       <div className="main">
           <Main>
-          <div label="My Profile">
+          <div className="profile-tab" label="My Profile">
             <UserProfile user={user}/>
           </div>
+          <div className="tab-list-item" label=""></div>
           <div label="Pre Work">
 
             <NoteList data={data} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
