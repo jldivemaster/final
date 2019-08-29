@@ -5,7 +5,7 @@ import Note from './Note'
 export default class NoteList extends React.Component {
 
   setModNum = () => {
-    if(this.props.mod == 0){
+    if(this.props.mod === '0'){
       return 'Pre-Work'
     } else {
       return 'Mod ' + this.props.mod

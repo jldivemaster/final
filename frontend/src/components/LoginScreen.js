@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
 import Login from './Login';
 import Register from './Register';
@@ -20,29 +20,26 @@ class LoginScreen extends Component {
   handleClick(event){
     // console.log("event",event);
     var loginmessage;
+    var loginscreen=[];
     if(this.state.isLogin){
-      var loginscreen=[];
       loginscreen.push(<Register parentContext={this}/>);
-      loginmessage = "Already registered.Go to Login";
+      loginmessage = "Already registered. Go to Login";
       this.setState({
                      loginscreen:loginscreen,
                      loginmessage:loginmessage,
                      buttonLabel:"Login",
                      isLogin:false
                    })
-    }
-    else{
-      var loginscreen=[];
+    } else {
       loginscreen.push(<Login parentContext={this}/>);
-      loginmessage = "Not Registered yet.Go to registration";
+      loginmessage = "Not Registered yet. Go to registration";
       this.setState({
                      loginscreen:loginscreen,
                      loginmessage:loginmessage,
                      buttonLabel:"Register",
                      isLogin:true
                    })
-    }
-  }
+    }}
 
 
   componentWillMount(){
@@ -60,11 +57,12 @@ class LoginScreen extends Component {
         {this.state.loginscreen}
         <div>
           {this.state.loginmessage}
-          <MuiThemeProvider>
+
             <div>
-               <Button variant="contained" label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+               <Button primary="true" style={style} variant="contained" onClick={(event) => this.handleClick(event)}>
+               {this.state.buttonLabel}</Button>
            </div>
-          </MuiThemeProvider>
+
         </div>
       </div>
     );
