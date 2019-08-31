@@ -1,12 +1,12 @@
 
 import React from 'react';
+import '../Header.css';
+import '../App.scss';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import { Paper, InputBase, Divider, IconButton, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,33 +26,46 @@ const useStyles = makeStyles(theme => ({
     height: 28,
     margin: 4,
   },
+  button: {
+    alignSelf: 'flex-end',
+  }
 }));
 
 export default function Header(props) {
+
   const classes = useStyles();
+
+
+  function showSearchBar () {
+    if(props.showSearchBar) {
+    return(
+      <div className="header">
+      <Paper id="search-bar" className={classes.root}>
+        <InputBase
+          className={classes.input}
+          placeholder="Search by Keyword"
+          inputProps={{ 'aria-label': 'search by keyword' }}
+          onChange={props.onFilter}
+        />
+        <IconButton className={classes.iconButton} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+        <Divider className={classes.divider} orientation="vertical" />
+        <IconButton color="primary" className={classes.iconButton} aria-label="assignment">
+          <AssignmentIcon />
+        </IconButton>
+      </Paper>
+      <Button variant="contained" color="primary" className={classes.button} onClick={props.onLogout}>
+        Log Out</Button>
+    </div>
+    )
+  }};
+
 
   return (
     <div id="header">
         <h2>Header</h2>
-        <Paper className={classes.root}>
-          <InputBase
-            className={classes.input}
-            placeholder="Search by Keyword"
-            inputProps={{ 'aria-label': 'search by keyword' }}
-            onChange={props.onFilter}
-          />
-          <IconButton className={classes.iconButton} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-          <Divider className={classes.divider} orientation="vertical" />
-          <IconButton color="primary" className={classes.iconButton} aria-label="assignment">
-            <AssignmentIcon />
-          </IconButton>
-        </Paper>
+        <div>{showSearchBar()}</div>
     </div>
   );
 }
-
-// <IconButton className={classes.iconButton} aria-label="menu">
-//   <MenuIcon />
-// </IconButton>

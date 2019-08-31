@@ -44,8 +44,7 @@ export default class Main extends React.Component {
                 key={label}
                 label={label}
                 onClick={onClickTabItem}
-              />
-            );
+              /> );
           })}
         </ol>
         <div className="tab-content">
@@ -55,7 +54,5 @@ export default class Main extends React.Component {
           })}
         </div>
       </div>
-    );
-  }
-
+   )};
 }
