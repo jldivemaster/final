@@ -4,7 +4,8 @@ import Header from './Header'
 import Main from './Main'
 import UserProfile from './UserProfile'
 import NoteList from './NoteList'
-import SignIn from './SignIn'
+import SignInContainer from './SignInContainer'
+
 
 // ***  Set Proper server URLS ==============
 const users_url = 'http://localhost:3000/users'
@@ -159,7 +160,7 @@ class App extends React.Component {
       </div>
     )} else {
       return (
-        <SignIn onCreateUser={this.createUser} handleLogin={this.handleLogin}/>
+        <SignInContainer onCreateUser={this.createUser} handleLogin={this.handleLogin}/>
       )}
     };
 
