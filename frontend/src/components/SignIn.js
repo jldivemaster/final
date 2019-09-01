@@ -16,6 +16,7 @@ export default class SignIn extends React.Component {
 
     handleRegister = (e) => {
       e.preventDefault();
+      {this.props.onCreateUser(e);}
       // fetch(user_url).then(resp => resp.json).then(user => )
 
       this.afterReg();
@@ -25,6 +26,7 @@ export default class SignIn extends React.Component {
     afterReg = () => {
       console.log('afterReg')
       this.setState({ created: !this.state.created })
+      console.log(this.state)
     }
 
     toggleView = () => {
@@ -41,7 +43,8 @@ export default class SignIn extends React.Component {
                <label htmlFor="first-name">First Name</label>
                <input type="text" id="first-name" name="first-name" /><br />
                <label htmlFor="last-name">Last Name</label>
-               <input type="last-name" value="" id="first-name" name="first-name" /><br />
+               // ======
+               <input type="last-name" id="last-name" name="last-name" /><br />
 
                <label htmlFor="password">Password</label>
                <input type="password" id="password" name="password" /><br />

@@ -7,8 +7,8 @@ import NoteList from './NoteList'
 import SignIn from './SignIn'
 
 // ***  Set Proper server URLS ==============
-const user_api = 'http://localhost:3000/users/:id'
-const notes_api = 'http://localhost:3000/notes'
+const users_url = 'http://localhost:3000/users'
+const notes_url = 'http://localhost:3000/notes'
 
 //========== Temp seed data===============
 const user = { name: "Jason Leach", email: "asdf@gmail.com", current_mod: 4, location: "Seattle"}
@@ -43,19 +43,39 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       user: {},
       notes: [],
       filteredNotes: []
     }
   }
 
+      createUser(e) {
+        console.log(e.target);
+        // const dataObj = {
+        //   'first_name': '',
+        //   'last_name': '',
+        //   'username': '',
+        //   'password': ''
+        // };
+        // const configObj = {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json'
+        //   },
+        //   body: JSON.stringify(dataObj)
+        // }
+        // fetch(users_url, configObj).then(resp => resp.json).then(console.log)
+      }
       handleLogin(e) {
             console.log(e.target)
-            fetch(user_api)
+            let user_id;
+            fetch(users_url + "/" + user_id)
             .then(res => res.json())
-            .then(user => {
-              return this.setUser(user)
+            .then(data => {
+              console.log(data);
+              // return this.setUser(user);
             })
           };
 
@@ -139,7 +159,7 @@ class App extends React.Component {
       </div>
     )} else {
       return (
-        <SignIn handleLogin={this.handleLogin}/>
+        <SignIn onCreateUser={this.createUser} handleLogin={this.handleLogin}/>
       )}
     };
 
