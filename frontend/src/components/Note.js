@@ -1,12 +1,23 @@
 import React from 'react'
 
 export default class Note extends React.Component {
-  state = { opened: false }
+  state = { opened: false,
+            editing: false }
 
-  handleEdit() {
+  openEdit = () => {
     console.log("editing")
+    this.setState({ editing: true })
     // Change text to form textarea for editing.  Add Return btn listener to save edits.
   }
+
+  saveEdit = (e) => {
+    if(e.keyCode === 13) {
+      console.log("saving")
+      this.setState({ editing: false })
+    } else {
+      console.log("e")
+    }
+  };
 
   handleDelete() {
     console.log("deleting")
@@ -19,6 +30,27 @@ export default class Note extends React.Component {
       state: { opened }
          } = this
 
+    let element;
+    if(this.state.editing) {
+      element = (
+        <div {...{ className: 'accordion-item__inner' }}>
+          <div {...{ className: 'accordion-item__content' }} onKeyPress={this.saveEdit}>
+              <p {...{ className: 'accordion-item__body' }}>
+                {body}
+              </p>
+              <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
+          </div>
+        </div>
+      )} else {
+        element = (<div {...{ className: 'accordion-item__inner' }}>
+          <div {...{ className: 'accordion-item__content' }} onDoubleClick={this.openEdit}>
+              <p {...{ className: 'accordion-item__body' }}>
+                {body}
+              </p>
+              <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
+          </div>
+        </div>
+      )}
     return (
       <div
         {...{ className: `accordion-item, ${opened && 'accordion-item--opened'}`,
@@ -31,15 +63,9 @@ export default class Note extends React.Component {
             <p {...{ className: 'accordion-item__ref' }}>{quick_ref}</p>
             <span {...{ className: 'accordion-item__icon' }}/>
         </div>
-        <div {...{ className: 'accordion-item__inner' }}>
-          <div {...{ className: 'accordion-item__content' }} onDoubleClick={this.handleEdit}>
-              <p {...{ className: 'accordion-item__body' }}>
-                {body}
-              </p>
-              <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
-          </div>
-        </div>
+        {element}
       </div>
-    )}
+    )
+  };
 
 }
