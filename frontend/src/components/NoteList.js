@@ -22,7 +22,7 @@ export default class NoteList extends React.Component {
           {this.props.data.map((data, key) => {
             return (
               <li {...{ className: "accordian-list__item", key }}>
-                <Note {...data} />
+                <Note {...data} mod={this.props.mod}/>
               </li>
             )
           })}

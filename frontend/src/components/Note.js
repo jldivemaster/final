@@ -1,4 +1,5 @@
 import React from 'react'
+import NoteContent from './NoteContent'
 
 export default class Note extends React.Component {
   state = { opened: false }
@@ -15,7 +16,7 @@ export default class Note extends React.Component {
 
   render() {
     const {
-      props: { body, quick_ref, title },
+      props: { note },
       state: { opened }
          } = this
 
@@ -25,16 +26,16 @@ export default class Note extends React.Component {
 
       }} >
         <div {...{ className: 'accordion-item__line', onClick: () => { this.setState({ opened: !opened }) } }}>
-            <h3 {...{ className: 'accordion-item__title' }}>
-              {title}
+            <h3 {...{ id: `note-title ${this.props.mod}` }}>
+              "Beefcake"
             </h3>
-            <p {...{ className: 'accordion-item__ref' }}>{quick_ref}</p>
+            <p {...{ className: 'accordion-item__ref' }}>{note.quick_ref}</p>
             <span {...{ className: 'accordion-item__icon' }}/>
         </div>
         <div {...{ className: 'accordion-item__inner' }}>
           <div {...{ className: 'accordion-item__content' }} onDoubleClick={this.handleEdit}>
               <p {...{ className: 'accordion-item__body' }}>
-                {body}
+                <NoteContent note={note} />
               </p>
               <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
           </div>
