@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Paper, Avatar, CssBaseLine, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
+import { Button, Paper, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography } from '@material-ui/core';
 // import Avatar from '@material-ui/core/Avatar';
 // import CssBaseline from '@material-ui/core/CssBaseline';
 // import TextField from '@material-ui/core/TextField';
@@ -58,8 +58,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInSide() {
-  const classes = useStyles();
+export default function SignIn(props) {
+  let classes = useStyles();
+
+  const handleSignIn = (e) => {
+  console.log(e)
+    // props.handleSignIn(e)
+  }
+
+  const btnClick = (e) => {
+    e.preventDefault();
+  console.log("btn" + e)
+    // props.handleSignIn(e)
+  }
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    console.log("form" + e)
+    // props.handleSignIn(e)
+  }
+
+  const linkClick = () => {
+  console.log("Retrieve PW")
+    // props.handleSignIn(e)
+  }
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -70,11 +93,11 @@ export default function SignInSide() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>{this.props.message}</h2>
+          <h2>{props.message}</h2>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={() => formSubmit()} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -107,17 +130,18 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={() => btnClick()}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" onClick={() => linkClick()} variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" onClick={props.toggleView} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

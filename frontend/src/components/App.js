@@ -40,19 +40,66 @@ const data = [
 // =======================================
 
 class App extends React.Component {
-  // ***
+
   constructor() {
     super();
     this.state = {
-      loggedIn: false,
+      signedIn: true,
+      signInView: "Sign In",
+      message: "",
       user: {},
       notes: [],
       filteredNotes: []
     }
   }
 
-      createUser(e) {
-        console.log(e.target);
+  toggleView = () => {
+    if(this.state.signInView === "Sign In") {
+      this.setState({
+        signInView: "Register"
+               })
+    } else if(this.state.signInView === "Register") {
+      this.setState({
+        signInView: "Sign In"
+               })
+    }
+  };
+
+  handleSignIn(e) {
+    console.log(e.target)
+    // let user_id;
+    // fetch(users_url + "/" + user_id).then(res => res.json())
+    //   .then(data => { console.log(data);
+          // return this.setUser(user);
+    // })
+    // if(valid credentials) {
+    this.setState({
+      signedIn: true,
+      user: data.user,
+      notes: [...data.user.notes],
+      filteredNotes: [...data.user.notes],
+    })
+    // } else {
+    // this.setState({
+    //   signInView: "Sign In Fail"
+    // })
+    // }
+  };
+
+  handleSignOut = (e) => {
+    console.log(e.target)
+    this.setState({
+        signedIn: false,
+        signInView: "Sign In",
+        message: "",
+        user: {},
+        notes: [],
+        filteredNotes: []
+    })
+  };
+
+  handlecreateUser = (e) => {
+    console.log(e.target);
         // const dataObj = {
         //   'first_name': '',
         //   'last_name': '',
@@ -68,49 +115,17 @@ class App extends React.Component {
         //   body: JSON.stringify(dataObj)
         // }
         // fetch(users_url, configObj).then(resp => resp.json).then(console.log)
-      }
-      handleLogin(e) {
-            console.log(e.target)
-            let user_id;
-            fetch(users_url + "/" + user_id)
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              // return this.setUser(user);
-            })
-          };
+      //   if(reg successful) {
+      //   this.setState({
+      //     SignInView: "Register Success"
+      //   })
+      // } else {
+      //   this.setState({
+      //     SignInView: "Register Fail"
+      //   })
+      // }
+  };
 
-          // fetchNotes(e) {
-          //   fetch(notes_api)
-          //   .then(res => res.json())
-          //   .then(notes => {
-          //     return this.setNotes(notes)
-          //   })
-          // }
-
-          setUser(user) {
-            this.setState({
-              loggedIn: true,
-              user: {...user}
-            })
-          };
-
-          // setNotes(notes) {
-          //   this.setState({
-          //     notes: {notes},
-          //     filteredNotes: {notes}
-          //   })
-          // }
-
-
-    handleLogout = () => {
-      this.setState({
-        loggedIn: false,
-        user: {},
-        notes: [],
-        filteredNotes: []
-      })
-    }
 
 
     handleSearch(e) {
@@ -128,7 +143,7 @@ class App extends React.Component {
 // **
 // ***
     signedIn() {
-      if(this.state.loggedIn) {
+      if(this.state.signedIn) {
      return (
       <div className="App">
         <div className="main">
@@ -160,7 +175,7 @@ class App extends React.Component {
       </div>
     )} else {
       return (
-        <SignInContainer onCreateUser={this.createUser} handleLogin={this.handleLogin}/>
+        <SignInContainer toggleView={this.toggleView} selectView={this.state.signInView}/>
       )}
     };
 
@@ -168,7 +183,7 @@ class App extends React.Component {
     return(
       <div>
         <header className="App-header">
-           <Header showSearchBar={this.state.loggedIn} onFilter={this.handleSearch} onLogout={this.handleLogout}/>
+           <Header showSearchBar={this.state.signedIn} onFilter={this.handleSearch} onLogout={this.handleLogout}/>
         </header>
 
        {this.signedIn()}

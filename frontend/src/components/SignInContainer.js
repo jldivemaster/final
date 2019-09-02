@@ -8,52 +8,52 @@ export default class SignInContainer extends React.Component {
     this.state = { currentView: 'signIn' }
   }
 
-    handleSignIn = event => {
-        event.preventDefault();
-        console.log({target: event.target})
-        this.props.handleLogin(event)
-    }
-
-    handleRegister = (e) => {
-      e.preventDefault();
-      {this.props.onCreateUser(e);}
-      // fetch(user_url).then(resp => resp.json).then(user => )
-
-      this.afterReg();
-
-    }
-
-    afterReg = () => {
-      console.log('afterReg')
-      this.setState({ created: !this.state.created })
-      console.log(this.state)
-    }
-
-    toggleView = () => {
-      this.setState({ createAcct: !this.state.createAcct })
-    }
+    // handleSignIn() {
+    //     // event.preventDefault();
+    //     console.log(event.target)
+    //     this.props.handleSignIn(event)
+    // }
+    //
+    // handleRegister() {
+    //   e.preventDefault();
+    //   {this.props.onCreateUser(e)}
+    //   // fetch(user_url).then(resp => resp.json).then(user => )
+    //
+    //   this.afterReg();
+    //
+    // }
+    //
+    // afterReg() {
+    //   console.log('afterReg')
+    //   this.setState({ created: !this.state.created })
+    //   console.log(this.state)
+    // }
+    //
+    // toggleView() {
+    //   this.setState({ createAcct: !this.state.createAcct })
+    // }
 
    render() {
-     switch(this.state.currentView) {
-       case 'signIn':
+     switch(this.props.selectView) {
+       case 'Sign In':
         return(<div>
-                <SignIn message=""/>
+                <SignIn handleSignIn={this.handleSignIn} toggleView={this.props.toggleView} message=""/>
                </div>);
-       case 'registering':
+       case 'Register':
         return(<div>
-                <Register createUser={this.message="registering"/>
+                <Register handleRegister={this.handleRegister} toggleView={this.props.toggleView} message="registering"/>
                 </div>);
-       case 'registered':
+       case 'Register Success':
         return(<div>
-                <SignIn message="account created"/>
+                <SignIn handleSignIn={this.handleSignIn} toggleView={this.props.toggleView} message="account created"/>
                </div>);
-      case 'register failed':
+      case 'Register Fail':
         return(<div>
-                <Register message="registration failed"/>
+                <Register handleRegister={this.handleRegister} toggleView={this.props.toggleView} message="registration failed"/>
               </div>);
-      case 'signIn failed':
+      case 'Sign In Fail':
         return(<div>
-                <SignIn message="signIn failed"/>
+                <SignIn handleSignIn={this.handleSignIn} toggleView={this.props.toggleView} message="signIn failed"/>
               </div>);
        default:
         return(<div>

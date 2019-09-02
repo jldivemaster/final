@@ -2,6 +2,7 @@
 import React from 'react';
 import '../Header.css';
 import '../App.scss';
+import '../logo512.png'
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, InputBase, Divider, IconButton, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -37,6 +38,7 @@ export default function Header(props) {
 
 
   function showSearchBar () {
+
     if(props.showSearchBar) {
     return(
       <div className="header">
@@ -61,11 +63,16 @@ export default function Header(props) {
     )
   }};
 
-
+  let bg = require('../logo512.png')
   return (
     <div id="header">
+    <div className="background" style ={ { backgroundImage: "url("+bg+")" } }>
+
         <h2>Header</h2>
         <div>{showSearchBar()}</div>
     </div>
+    </div>
   );
 }
+
+// url('https://lh3.googleusercontent.com/MOf9Kxxkj7GvyZlTZOnUzuYv0JAweEhlxJX6gslQvbvlhLK5_bSTK6duxY2xfbBsj43H=w300')
