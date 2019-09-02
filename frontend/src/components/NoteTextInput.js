@@ -22,6 +22,7 @@ export default class NoteTextInput extends Component {
   handleSubmit = (evt) => {
     const text = evt.target.value.trim();
     if (evt.which === 13) {
+      console.log()
       this.props.onSave(text);
       if (this.props.newNote) {
         this.setState({ text: '' });
@@ -34,9 +35,9 @@ export default class NoteTextInput extends Component {
   };
 
   handleBlur = (evt) => {
-    if (!this.props.newNote) {
-      this.props.onSave(evt.target.value);
-    }
+    // if (!this.props.newNote) {
+    //   this.props.onSave(evt.target.value);
+    // }
   };
 
   render() {
@@ -46,10 +47,10 @@ export default class NoteTextInput extends Component {
           [style.edit]: this.props.editing,
           [style.new]: this.props.newNote
         })}
-        type="text"
+        type="textarea"
         placeholder={this.props.placeholder}
-        autoFocus="true"
-        value={this.state.text}
+        autoFocus={true}
+        value={this.state.body}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onKeyDown={this.handleSubmit}
