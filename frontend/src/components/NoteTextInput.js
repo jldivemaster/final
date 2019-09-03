@@ -42,12 +42,13 @@ export default class NoteTextInput extends Component {
 
   render() {
     return (
-      <input
+      <textarea
         className={classnames({
           [style.edit]: this.props.editing,
           [style.new]: this.props.newNote
         })}
-        type="textarea"
+        type="text"
+        rows="15" cols="100"
         placeholder={this.props.placeholder}
         autoFocus={true}
         value={this.state.body}
