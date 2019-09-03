@@ -53,11 +53,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Register(props) {
+
+  const [values, setValues] = React.useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: ""
+  });
+
+
+  const handleChange = name => (e) => {
+    setValues({ ...values, [name]: e.target.value })
+  };
+
   const classes = useStyles();
 
-  function createUser(e) {
-    // e.preventDefault();
-    // props.createUser(e);
+  const createUser = (e) => {
+    e.preventDefault();
+    e.persist();
+    props.handleRegister(e);
   }
 
   return (
@@ -73,7 +87,7 @@ export default function Register(props) {
           Sign up
         </Typography>
 
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={createUser} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -84,6 +98,8 @@ export default function Register(props) {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={values.firstName}
+                onChange={handleChange('firstName')}
                 autoFocus
               />
             </Grid>
@@ -95,6 +111,8 @@ export default function Register(props) {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                value={values.lastName}
+                onChange={handleChange('lastName')}
                 autoComplete="lname"
               />
             </Grid>
@@ -103,10 +121,12 @@ export default function Register(props) {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="User Name"
+                name="username"
+                value={values.username}
+                onChange={handleChange('username')}
+                autoComplete="username"
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,6 +138,8 @@ export default function Register(props) {
                 label="Password"
                 type="password"
                 id="password"
+                value={values.password}
+                onChange={handleChange('password')}
                 autoComplete="current-password"
               />
             </Grid>
@@ -128,7 +150,6 @@ export default function Register(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onSubmit={createUser()}
           >
             Sign Up
           </Button>

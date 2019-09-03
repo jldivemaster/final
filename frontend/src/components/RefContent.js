@@ -25,12 +25,12 @@ export default class RefContent extends Component {
   };
 
   render() {
-    const { ...otherAttributes } = this.props;
+    // const { ...otherAttributes } = this.props;
     return(
       <p ref={(ref) => {this.nodeSelect = ref} }
             onInput={this.emitChange}
             onBlur={this.emitChange}
-            contentEditable={this.props.editable}
+            contentEditable
             dangerouslySetInnerHTML={{__html: this.props.html}}>{this.props.value}</p>
     )
   }

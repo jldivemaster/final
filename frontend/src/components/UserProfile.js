@@ -9,7 +9,7 @@ export default class UserProfile extends React.Component {
         <h1>User Profile</h1>
         <div className="profile-list">
           <ul>{this.props.user.name}</ul>
-          <ul>Email: {this.props.user.email}</ul>
+          <ul>username: {this.props.user.username}</ul>
           <ul>Mod: {this.props.user.current_mod}</ul>
           <ul>Location: {this.props.user.location}</ul>
           <ul>Add Edit/Delete Buttons</ul>

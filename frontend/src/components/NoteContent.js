@@ -26,14 +26,14 @@ export default class NoteContent extends Component {
   };
 
   render() {
-    const { ...otherAttributes } = this.props;
+    // const { ...otherAttributes } = this.props;
     return(
       <p ref={(ref) => {this.nodeSelect = ref} }
             onInput={this.emitChange}
             onBlur={this.emitChange}
             contentEditable
-            dangerouslySetInnerHTML={{__html: this.props.html}}>{this.props.value}</p>
+            innertext={{__html: this.props.html}}>{this.props.value}</p>
     )
-  }
+  };
 
 }
