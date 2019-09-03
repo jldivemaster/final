@@ -4,7 +4,8 @@ import Header from './Header'
 import Main from './Main'
 import UserProfile from './UserProfile'
 import NoteList from './NoteList'
-import SignIn from './SignIn'
+import SignInContainer from './SignInContainer'
+
 
 // ***  Set Proper server URLS ==============
 const users_url = 'http://localhost:3000/users'
@@ -12,9 +13,9 @@ const notes_url = 'http://localhost:3000/notes'
 
 //========== Temp seed data===============
 const user = { name: "Jason Leach", email: "asdf@gmail.com", current_mod: 4, location: "Seattle"}
-const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.'
+const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.  Now let us go and make this fucker a really long facking text string. asf;dgojneqrgpqeorinvq[erofjknq  wer[boianrs[efojkwnef;qlaeijbvPSEINF wlekvnafrviojasdf;vkansr;vakrnv;aer]]] '
 const quick_ref = "reference to notes"
-const data = [
+const notes = [
   {
     title: 'Lab 1 Title',
     body,
@@ -39,19 +40,66 @@ const data = [
 // =======================================
 
 class App extends React.Component {
-  // ***
+
   constructor() {
     super();
     this.state = {
-      loggedIn: false,
+      signedIn: true,
+      signInView: "Sign In",
+      message: "",
       user: {},
       notes: [],
       filteredNotes: []
     }
   }
 
-      createUser(e) {
-        console.log(e.target);
+  toggleView = () => {
+    if(this.state.signInView === "Sign In") {
+      this.setState({
+        signInView: "Register"
+               })
+    } else if(this.state.signInView === "Register") {
+      this.setState({
+        signInView: "Sign In"
+               })
+    }
+  };
+
+  handleSignIn(e) {
+    console.log(e.target)
+    // let user_id;
+    // fetch(users_url + "/" + user_id).then(res => res.json())
+    //   .then(data => { console.log(data);
+          // return this.setUser(user);
+    // })
+    // if(valid credentials) {
+    this.setState({
+      signedIn: true,
+      // user: data.user,
+      // notes: [...data.user.notes],
+      // filteredNotes: [...data.user.notes],
+    })
+    // } else {
+    // this.setState({
+    //   signInView: "Sign In Fail"
+    // })
+    // }
+  };
+
+  handleSignOut = (e) => {
+    console.log(e.target)
+    this.setState({
+        signedIn: false,
+        signInView: "Sign In",
+        message: "",
+        user: {},
+        notes: [],
+        filteredNotes: []
+    })
+  };
+
+  handlecreateUser = (e) => {
+    console.log(e.target);
         // const dataObj = {
         //   'first_name': '',
         //   'last_name': '',
@@ -67,49 +115,17 @@ class App extends React.Component {
         //   body: JSON.stringify(dataObj)
         // }
         // fetch(users_url, configObj).then(resp => resp.json).then(console.log)
-      }
-      handleLogin(e) {
-            console.log(e.target)
-            let user_id;
-            fetch(users_url + "/" + user_id)
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              // return this.setUser(user);
-            })
-          };
+      //   if(reg successful) {
+      //   this.setState({
+      //     SignInView: "Register Success"
+      //   })
+      // } else {
+      //   this.setState({
+      //     SignInView: "Register Fail"
+      //   })
+      // }
+  };
 
-          // fetchNotes(e) {
-          //   fetch(notes_api)
-          //   .then(res => res.json())
-          //   .then(notes => {
-          //     return this.setNotes(notes)
-          //   })
-          // }
-
-          setUser(user) {
-            this.setState({
-              loggedIn: true,
-              user: {...user}
-            })
-          };
-
-          // setNotes(notes) {
-          //   this.setState({
-          //     notes: {notes},
-          //     filteredNotes: {notes}
-          //   })
-          // }
-
-
-    handleLogout = () => {
-      this.setState({
-        loggedIn: false,
-        user: {},
-        notes: [],
-        filteredNotes: []
-      })
-    }
 
 
     handleSearch(e) {
@@ -127,7 +143,7 @@ class App extends React.Component {
 // **
 // ***
     signedIn() {
-      if(this.state.loggedIn) {
+      if(this.state.signedIn) {
      return (
       <div className="App">
         <div className="main">
@@ -139,19 +155,19 @@ class App extends React.Component {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList data={data} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+              <NoteList notes={notes} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
             </div>
               <div label="Mod 1">
-                <NoteList data={data} mod="1" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="1" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
               </div>
               <div label="Mod 2">
-                <NoteList data={data} mod='2' title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod='2' title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
               </div>
               <div label="Mod 3">
-                <NoteList data={data} mod="3" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="3" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
               </div>
               <div label="Mod 4">
-                <NoteList data={data} mod="4" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="4" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
               </div>
 
             </Main>
@@ -159,7 +175,7 @@ class App extends React.Component {
       </div>
     )} else {
       return (
-        <SignIn onCreateUser={this.createUser} handleLogin={this.handleLogin}/>
+        <SignInContainer toggleView={this.toggleView} selectView={this.state.signInView}/>
       )}
     };
 
@@ -167,7 +183,7 @@ class App extends React.Component {
     return(
       <div>
         <header className="App-header">
-           <Header showSearchBar={this.state.loggedIn} onFilter={this.handleSearch} onLogout={this.handleLogout}/>
+           <Header showSearchBar={this.state.signedIn} onFilter={this.handleSearch} onLogout={this.handleLogout}/>
         </header>
 
        {this.signedIn()}

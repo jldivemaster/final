@@ -31,7 +31,7 @@ $cLightGray: rgba(#000, 0.1);
     }
 
     #{ $self }__inner{
-      max-height: 100rem;
+      max-height: 200rem;
       transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
       transition-duration: 0.5s;
       transition-property: max-height;
@@ -55,7 +55,7 @@ $cLightGray: rgba(#000, 0.1);
     align-items: center;
     background-color: #282c34;
     z-index: 2;
-    position: relative;
+    // position: relative;
   }
 
   &__title{
