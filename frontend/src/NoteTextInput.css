@@ -3,11 +3,12 @@
   position: relative;
   margin: 0;
   width: 100%;
-  min-height: 200px;
-  font-size: 1.5rem;
+
+  font-size: 24px;
   font-family: inherit;
   font-weight: inherit;
-  line-height: 1.6em;
+  line-height: 1.4em;
+
   border: 0;
   outline: none;
   color: inherit;

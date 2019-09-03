@@ -1,8 +1,10 @@
+
 import React from 'react';
 // import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import NoteTextInput from './NoteTextInput'
 import  style from '../Note.css'
+import NoteContent from './NoteContent'
 
 export default class Note extends React.Component {
 
@@ -136,9 +138,9 @@ export default class Note extends React.Component {
             >
               {element}
       </div>
+               
       </div>
-    )};
-
+   )};
 }
 
 // {classnames({

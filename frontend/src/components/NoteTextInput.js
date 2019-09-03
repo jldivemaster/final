@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import style from '../NoteTextInput.css';
@@ -5,11 +6,14 @@ import style from '../NoteTextInput.css';
 export default class NoteTextInput extends Component {
 
   // static propTypes = {
-  //   onSave: PropTypes.func.isRequired,
-  //   text: PropTypes.string,
+
+  //
+  //   body: PropTypes.string,
   //   placeholder: PropTypes.string,
   //   editing: PropTypes.bool,
-  //   newTodo: PropTypes.bool
+  //   onSave: PropTypes.func.isRequired,
+  //   newNote: PropTypes.bool
+
   // };
 
   constructor(props, context) {
@@ -25,6 +29,7 @@ export default class NoteTextInput extends Component {
       console.log()
       this.props.onSave(text);
       if (this.props.newNote) {
+
         this.setState({ text: '' });
       }
     }
