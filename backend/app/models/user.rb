@@ -1,6 +1,9 @@
 class User < ApplicationRecord
+  has_secure_password
+  validates_presence_of :username
+
   has_many :notes
-  validates_presence_of :first_name, :last_name
+
 
   def full_name
     return self.first_name + " " + self.last_name

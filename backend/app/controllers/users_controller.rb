@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, except: [:new, :create]
+
+  skip_before_action :verify_authenticity_token
 
   def index
     @users = User.all
@@ -12,13 +15,19 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      redirect_to @user
+      render json: @user
     else
-      render :new
+      render json: { error: "User credentials invalid." }
     end
   end
 
   def show
+    @user = User.find_by(username: params['username'])
+    render json: {
+      status: 'logged_in',
+      logged_in: true,
+      user: @user
+    }
   end
 
   def edit
@@ -41,7 +50,7 @@ class UsersController < ApplicationController
   private
 
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :location, :program, :current_mod, :type, :password_digest, :username)
+        params.require(:user).permit(:first_name, :last_name, :location, :program, :current_mod, :type, :password, :username)
       end
 
       def set_user
