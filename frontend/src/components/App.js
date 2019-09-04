@@ -13,7 +13,7 @@ const notes_url = 'http://localhost:3000/notes'
 
 //========== Temp seed data===============
 const user = { name: "Jason Leach", email: "asdf@gmail.com", current_mod: 4, location: "Seattle"}
-const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.'
+const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.  Now let us go and make this fucker a really long facking text string. asf;dgojneqrgpqeorinvq[erofjknq  wer[boianrs[efojkwnef;qlaeijbvPSEINF wlekvnafrviojasdf;vkansr;vakrnv;aer]]] '
 const quick_ref = "reference to notes"
 const notes = [
   {
@@ -126,6 +126,10 @@ class App extends React.Component {
       // }
   };
 
+  handleEditNote = (a, b) => {
+    console.log('editing in app', a, b)
+  }
+
 
 
     handleSearch(e) {
@@ -155,19 +159,19 @@ class App extends React.Component {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList notes={notes} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+              <NoteList notes={notes} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2" handleEditNote={this.handleEditNote} />
             </div>
               <div label="Mod 1">
-                <NoteList notes={notes} mod="1" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="1" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2" handleEditNote={this.handleEditNote} />
               </div>
               <div label="Mod 2">
-                <NoteList notes={notes} mod='2' title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod='2' title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2" handleEditNote={this.handleEditNote} />
               </div>
               <div label="Mod 3">
-                <NoteList notes={notes} mod="3" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="3" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2" handleEditNote={this.handleEditNote} />
               </div>
               <div label="Mod 4">
-                <NoteList notes={notes} mod="4" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="4" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2" handleEditNote={this.handleEditNote} />
               </div>
 
             </Main>

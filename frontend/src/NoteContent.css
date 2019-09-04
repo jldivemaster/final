@@ -1,8 +1,8 @@
 .normal .toggle {
   text-align: center;
-  width: 60px;
+  width: 40px;
   /* auto, since non-WebKit browsers doesn't support input styling */
-  height: inherit;
+  height: auto;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -69,7 +69,7 @@
 
 .editing:last-child {
   margin-bottom: -1px;
-} */
+}
 
 .editing .edit {
   display: block;
@@ -82,6 +82,10 @@
   display: none;
 }
 
+.completed label {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
 
 /*
   Hack to remove background from Mobile Safari.
@@ -93,6 +97,6 @@
   }
 
   .normal .toggle {
-    height: 60px;
+    height: 40px;
   }
 }
