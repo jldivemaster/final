@@ -6,37 +6,13 @@ import RefContent from './RefContent';
 // import style from '../Note.css'
 
 export default class Note extends React.Component {
-<<<<<<< HEAD
-  state = { opened: false,
-            editing: false }
-
-  openEdit = () => {
-    console.log("editing")
-    this.setState({ editing: true })
-    // Change text to form textarea for editing.  Add Return btn listener to save edits.
-  }
-
-  saveEdit = (e) => {
-    if(e.keyCode === 13) {
-      console.log("saving")
-      this.setState({ editing: false })
-    } else {
-      console.log("e")
-    }
-  };
-
-  handleDelete() {
-    console.log("deleting")
-    // Delete fetch to server, unrender notelist item.
-=======
-
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
     this.state = { opened: false,
               editing: false,
               bodyHtml: this.props.body,
               refHtml: this.props.quick_ref }
-  }
+   };
 
   handleBodyEdit = (e) => {
     console.log('editing' + e)
@@ -66,7 +42,6 @@ export default class Note extends React.Component {
     this.setState({
       editing: !this.state.editing
     })
->>>>>>> f94e88b42e6ae55aa57eb0b993f5a45a2c2515ce
   }
 
   render() {
@@ -76,27 +51,6 @@ export default class Note extends React.Component {
       state: { opened }
          } = this
 
-    let element;
-    if(this.state.editing) {
-      element = (
-        <div {...{ className: 'accordion-item__inner' }}>
-          <div {...{ className: 'accordion-item__content' }} onKeyPress={this.saveEdit}>
-              <p {...{ className: 'accordion-item__body' }}>
-                {body}
-              </p>
-              <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
-          </div>
-        </div>
-      )} else {
-        element = (<div {...{ className: 'accordion-item__inner' }}>
-          <div {...{ className: 'accordion-item__content' }} onDoubleClick={this.openEdit}>
-              <p {...{ className: 'accordion-item__body' }}>
-                {body}
-              </p>
-              <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
-          </div>
-        </div>
-      )}
     return (
       <div
         {...{ className: `accordion-item, ${opened && 'accordion-item--opened'}`,
@@ -110,27 +64,19 @@ export default class Note extends React.Component {
             <RefContent html={this.state.refHtml} editing={this.state.editing} onChange={this.handleRefEdit} /></h4>
             <span {...{ className: 'accordion-item__icon' }}/>
         </div>
-<<<<<<< HEAD
-        {element}
-      </div>
-    )
-  };
-=======
         <div >
             <div {...{ className: 'accordion-item__inner' }}>
               <div {...{ className: 'accordion-item__content' }}>
-                  <div {...{ className: 'accordion-item__body' }} >
+                  <p {...{ className: 'accordion-item__body' }} >
                     <NoteContent html={this.state.bodyHtml} editing={this.state.editing} onChange={this.handleBodyEdit} />
-                  </div>
-                  <button id="edit-btn" onClick={this.sendBodyEdit}>Edit</button>
+                  </p>
+                  <button id="edit-btn" onClick={this.toggleEditable}>Edit</button>
                   <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
               </div>
             </div>
         </div>
       </div>
     )};
->>>>>>> f94e88b42e6ae55aa57eb0b993f5a45a2c2515ce
-
 }
 
 // {classnames({
