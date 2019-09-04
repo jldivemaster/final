@@ -1,12 +1,15 @@
 import React from 'react'
 import '../UserProfile.css'
+import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
+import _ from 'lodash'
 
 export default class UserProfile extends React.Component {
   constructor(props) {
     super(props)
   this.state = {
     editing: false,
-    name: (this.props.user.first_name + " " + this.props.user.last_name),
+    firstname: (this.props.user.first_name),
+    lastname: (this.props.user.last_name),
     username: this.props.user.username,
     location: this.props.user.location,
     program: this.props.user.program,
@@ -14,37 +17,70 @@ export default class UserProfile extends React.Component {
    }
  };
 
-  handleClick = () => {
-    this.setState({ editing: true })
-  }
+ // const [values, setValues] = React.useState({
+ //   username: props.user.username,
+ //   fullName: props.user.first_name + " " + props.user.last_name,
+ //   location: props.user.location,
+ //   program: props.user.program,
+ //   mod: props.user.current_mod,
+ //   editing: false
+ // });
+ //
+ //  const handleClick = () => {
+ //    setValues({ ...values, editing: true })
+ //    // this.props.startUserEdit()
+ //  };
+ //
+ //  const handleChange = name => (e) => {
+ //    setValues({...values, [name]: e.target.value })
+ //  }
+ //
+ //  const handleUserEdit = (e) => {
+ //    e.persist();
+ //    props.handleUserEdit(e)
+ //    setValues({ ...values, editing: false })
+ //  }
 
-  handleUserEdit = (e) => {
-    e.persist();
-    this.setState({ editing: false })
-    this.props.handleUserEdit(e)
-  }
+ handleChange = name => (e) => {
+   console.log(name, e[name])
+    this.setState({ [name]: e[name] })
+ }
+
+ handleClick = () => {
+   this.setState({ editing: true })
+ };
+
+ handleUserEdit = (e) => {
+   e.persist();
+  this.props.handleUserEdit(e)
+   this.setState({ editing: false })
+ }
+
 
   render() {
-
+    console.log(this.props.user)
     if (this.state.editing) {
       return (
         <div id="profile">
           <h1>User Profile</h1>
           <div className="profile-list">
-            <ul id="name"> Name:
-              <h4 contentEditable>{this.state.name}</h4>
+            <ul id="firstname"> First Name:
+              <RIEInput name='firstname' value={this.state.firstname} change={this.handleChange('firstname')} propName='firstname' validate={_.isString} />
+            </ul>
+            <ul id="lastname"> Last Name:
+              <RIEInput name='lastname' value={this.state.lastname} change={this.handleChange('lastname')} propName='lastname' validate={_.isString} />
             </ul>
             <ul id="username"> User Name:
-              <h4 contentEditable>{this.state.username}</h4>
+              <RIEInput name='username' value={this.state.username} change={this.handleChange('username')} propName='username' validate={_.isString} />
             </ul>
             <ul id="location"> Location:
-              <h4 contentEditable>{this.state.location}</h4>
+              <RIEInput name='location' value={this.state.location} change={this.handleChange('location')} propName='location' validate={_.isString} />
             </ul>
             <ul id="program"> Program:
-              <h4 contentEditable>{this.state.program}</h4>
+              <RIEInput name='program' value={this.state.program} change={this.handleChange('program')} propName='program' validate={_.isString} />
             </ul>
             <ul id="mod"> Mod #
-              <h4 contentEditable>{this.state.mod}</h4>
+              <RIEInput name='mod' value={this.state.mod} change={this.handleChange('mod')} propName='mod' validate={_.isString} />
             </ul>
             <button onClick={this.handleUserEdit}>Save Edit</button>
           </div>
@@ -55,7 +91,7 @@ export default class UserProfile extends React.Component {
       <div id="profile">
         <h1>User Profile</h1>
         <div className="profile-list">
-          <ul>Name: {this.state.name}</ul>
+          <ul>Name: {this.state.firstname + " " + this.state.lastname}</ul>
           <ul>User Name: {this.state.username}</ul>
           <ul>Location: {this.state.location}</ul>
           <ul>Program: {this.state.program}</ul>
@@ -64,5 +100,11 @@ export default class UserProfile extends React.Component {
         </div>
       </div>
     )}
-  };
+  }
 }
+
+// <h4 contentEditable onChange={this.handleChange('fullname')}>{this.state.fullName}</h4>
+// <h4 contentEditable onChange={this.handleChange('username')}>{this.state.username}</h4>
+// <h4 contentEditable onChange={this.handleChange('location')}>{this.state.location}</h4>
+// <h4 contentEditable onChange={this.handleChange('program')}>{this.state.program}</h4>
+// <h4 onChange={this.handleChange('mod')}>{this.state.mod}</h4>

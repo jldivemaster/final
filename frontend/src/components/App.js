@@ -6,6 +6,8 @@ import UserProfile from './UserProfile'
 import NoteList from './NoteList'
 import SignInContainer from './SignInContainer'
 import SearchResults from './SearchResults'
+import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
+import _ from 'lodash'
 
 
 // ***  Set Proper server URLS ==============
@@ -26,7 +28,9 @@ class App extends React.Component {
       user: {},
       notes: [],
       filteredNotes: [],
-      keyword: ""
+      keyword: "",
+      // editingUser: false,
+
     }
   };
 
@@ -132,18 +136,30 @@ class App extends React.Component {
 
     }
 
+    startUserEdit = () => {
+      // this.setState({ editingUser: true })
+    };
+
     handleUserEdit = (e) => {
-      let name = e.target.parentNode.children[0].children[0].innerText
-      let username = e.target.parentNode.children[1].children[0].innerText
-      let location = e.target.parentNode.children[2].children[0].innerText
-      let program = e.target.parentNode.children[3].children[0].innerText
-      let mod = e.target.parentNode.children[4].children[0].innerText
-      let first_name = name.split(" ")[0]
-      let last_name = name.split(" ")[1]
-      console.log(name, username, location, program, mod)
+      // console.log(e.target.parentNode.children[0].lastChild.innerText)
+      // let name = e.target.parentNode.children[0].children[0].innerText
+      // let username = e.target.parentNode.children[1].children[0].innerText
+      // let location = e.target.parentNode.children[2].children[0].innerText
+      // let program = e.target.parentNode.children[3].children[0].innerText
+      // let mod = e.target.parentNode.children[4].children[0].innerText
+      // let first_name = name.split(" ")[0]
+      // let last_name = name.split(" ")[1]
+      let firstname = e.target.parentNode.children[0].lastChild.innerText
+      let lastname = e.target.parentNode.children[1].lastChild.innerText
+      let username = e.target.parentNode.children[2].lastChild.innerText
+      let location = e.target.parentNode.children[3].lastChild.innerText
+      let program = e.target.parentNode.children[4].lastChild.innerText
+      // let mod = e.target.parentNode.children[5].lastChild.innerText
+      let mod = 5
+      console.log(firstname, lastname, username, location, program, mod)
       const dataObj = {
-        'first_name': first_name,
-        'last_name': last_name,
+        'first_name': firstname,
+        'last_name': lastname,
         'username': username,
         'location': location,
         'program': program,
@@ -161,12 +177,25 @@ class App extends React.Component {
       fetch(users_url + '/' + this.state.user.id, configObj).then(res => res.json())
         .then(data => {
         this.setState({
-                      user: data.user
+                      user: data.user,
+                      // editingUser: false
                     })
             })
     }
 // **
 // ***
+
+render() {
+  return(
+    <div>
+      <header className="App-header">
+         <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
+      </header>
+
+     {this.signedIn()}
+    </div>
+)};
+
     signedIn() {
       if(this.state.signedIn && !this.state.searching) {
      return (
@@ -175,7 +204,7 @@ class App extends React.Component {
             <Main>
 
             <div className="profile-tab" label="My Profile">
-              <UserProfile user={this.state.user} handleUserEdit={this.handleUserEdit}/>
+              <UserProfile user={this.state.user} editing={this.state.editingUser} startUserEdit={this.startUserEdit} handleUserEdit={this.handleUserEdit}/>
             </div>
 
             <div className="tab-list-item" label=""></div>
@@ -206,16 +235,6 @@ class App extends React.Component {
       )}
     };
 
-  render() {
-    return(
-      <div>
-        <header className="App-header">
-           <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
-        </header>
-
-       {this.signedIn()}
-      </div>
-  )};
 }
 
 export default App;
