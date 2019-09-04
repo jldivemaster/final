@@ -1,17 +1,7 @@
 import React from 'react'
 import { Button, Paper, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography } from '@material-ui/core';
-// import Avatar from '@material-ui/core/Avatar';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
-// import Grid from '@material-ui/core/Grid';
-// import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-// import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-// import Container from '@material-ui/core/Container';
 
 function Copyright() {
   return (
@@ -61,27 +51,30 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn(props) {
   let classes = useStyles();
 
+  const [values, setValues] = React.useState({
+    username: "",
+    password: ""
+  });
+
   const handleSignIn = (e) => {
   console.log(e)
     // props.handleSignIn(e)
-  }
+  };
 
-  const btnClick = (e) => {
-    e.preventDefault();
-  console.log("btn" + e)
-    // props.handleSignIn(e)
-  }
+  const handleChange = name => (e) => {
+    setValues({...values, [name]: e.target.value })
+  };
 
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log("form" + e)
-    // props.handleSignIn(e)
-  }
+    e.persist();
+    // console.log("form" + e)
+    props.handleSignIn(e)
+  };
 
   const linkClick = () => {
-  console.log("Retrieve PW")
-    // props.handleSignIn(e)
-  }
+    console.log("Retrieve PW")
+  };
 
 
   return (
@@ -97,16 +90,18 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form onSubmit={() => formSubmit()} className={classes.form} noValidate>
+          <form onSubmit={formSubmit} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="User Name"
+              name="username"
+              autoComplete="username"
+              value={values.username}
+              onChange={handleChange('username')}
               autoFocus
             />
             <TextField
@@ -119,6 +114,8 @@ export default function SignIn(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={values.password}
+              onChange={handleChange('password')}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -130,7 +127,6 @@ export default function SignIn(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => btnClick()}
             >
               Sign In
             </Button>

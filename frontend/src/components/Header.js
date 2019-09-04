@@ -34,8 +34,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
 
+  const [values, setValues] = React.useState({
+    keyword: ""
+  })
+
   const classes = useStyles();
 
+  const updateKW = input => (e) => {
+    setValues({...values, [input]: e.target.value })
+  }
+
+  const onSearch = () => {
+    // e.persist();
+    let keyword = values.keyword
+    props.onSearch(keyword);
+  }
 
   function showSearchBar () {
 
@@ -45,11 +58,13 @@ export default function Header(props) {
       <Paper id="search-bar" className={classes.root}>
         <InputBase
           className={classes.input}
+          name="keyword"
           placeholder="Search by Keyword"
           inputProps={{ 'aria-label': 'search by keyword' }}
-          onChange={props.onFilter}
+          onChange={updateKW('keyword')}
+          value={values.keyword}
         />
-        <IconButton className={classes.iconButton} aria-label="search">
+        <IconButton onClick={() => onSearch()} className={classes.iconButton} aria-label="search">
           <SearchIcon />
         </IconButton>
         <Divider className={classes.divider} orientation="vertical" />
@@ -57,7 +72,7 @@ export default function Header(props) {
           <AssignmentIcon />
         </IconButton>
       </Paper>
-      <Button variant="contained" color="primary" className={classes.button} onClick={props.onLogout}>
+      <Button variant="contained" color="primary" className={classes.button} onClick={props.onSignOut}>
         Log Out</Button>
     </div>
     )

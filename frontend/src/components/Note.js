@@ -1,9 +1,9 @@
 import React from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import NoteContent from './NoteContent';
 import RefContent from './RefContent';
 
-import  style from '../Note.css'
+// import style from '../Note.css'
 
 export default class Note extends React.Component {
 
@@ -32,8 +32,9 @@ export default class Note extends React.Component {
   }
 
   render() {
+
     const {
-      // props: { note },
+      props: { lab_title, quick_ref, body },
       state: { opened }
          } = this
 
@@ -44,7 +45,7 @@ export default class Note extends React.Component {
       }} >
         <div {...{ className: 'accordion-item__line', onClick: () => { this.setState({ opened: !opened }) } }}>
             <h3 {...{ className: 'accordion-item__title' }}>
-              {this.props.title}
+              {this.props.lab_title}
             </h3>
             <h4 {...{ className: 'accordion-item__ref' }} onDoubleClick={this.toggleEditable}>
             <RefContent html={this.state.refHtml} editing={this.state.editing} onChange={this.handleRefEdit} /></h4>
@@ -53,9 +54,9 @@ export default class Note extends React.Component {
         <div >
             <div {...{ className: 'accordion-item__inner' }}>
               <div {...{ className: 'accordion-item__content' }}>
-                  <p {...{ className: 'accordion-item__body' }} >
+                  <div {...{ className: 'accordion-item__body' }} >
                     <NoteContent html={this.state.bodyHtml} editing={this.state.editing} onChange={this.handleBodyEdit} />
-                  </p>
+                  </div>
                   <button id="edit-btn" onClick={this.toggleEditable}>Edit</button>
                   <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
               </div>
