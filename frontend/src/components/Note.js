@@ -48,7 +48,7 @@ export default class Note extends React.Component {
     if(this.state.editing) {
       return (
         <NoteTextInput
-          body={note.body}
+          body={this.props.body}
           editing={this.state.editing}
           onSave={this.handleSave}
         />
@@ -60,15 +60,15 @@ export default class Note extends React.Component {
       }} >
         <div {...{ className: 'accordion-item__line', onClick: () => { this.setState({ opened: !opened }) } }}>
             <h3 {...{ className: 'accordion-item__title' }}>
-              {note.title}
+              {this.props.title}
             </h3>
-            <p {...{ className: 'accordion-item__ref' }}>{note.quick_ref}</p>
+            <p {...{ className: 'accordion-item__ref' }}>{this.props.quick_ref}</p>
             <span {...{ className: 'accordion-item__icon' }}/>
         </div>
         <div {...{ className: 'accordion-item__inner' }}>
           <div {...{ className: 'accordion-item__content' }} onDoubleClick={this.handleEdit}>
               <p {...{ className: 'accordion-item__body' }}>
-                {note.body}
+                {this.props.body}
               </p>
               <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
           </div>
