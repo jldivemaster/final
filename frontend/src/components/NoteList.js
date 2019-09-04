@@ -19,10 +19,10 @@ export default class NoteList extends React.Component {
       <div {...{ className: "wrapper" }}>
       <h1>{modNum}</h1>
         <ul {...{ className: "accordian-list" }}>
-          {this.props.data.map((data, key) => {
+          {this.props.notes.map((note, key) => {
             return (
               <li {...{ className: "accordian-list__item", key }}>
-                <Note {...data} />
+                <Note {...note} handleNoteChange={this.props.handleNoteChange}/>
               </li>
             )
           })}

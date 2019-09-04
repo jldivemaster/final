@@ -61,26 +61,25 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn(props) {
   let classes = useStyles();
 
-  const handleSignIn = (e) => {
-  console.log(e)
-    // props.handleSignIn(e)
-  }
+  const [values, setValues] = React.useState({
+    username: "",
+    password: ""
+  });
 
-  const btnClick = (e) => {
-    e.preventDefault();
-  console.log("btn" + e)
-    // props.handleSignIn(e)
-  }
+
+  const handleChange = name => (e) => {
+    setValues({ ...values, [name]: e.target.value })
+  };
 
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log("form" + e)
-    // props.handleSignIn(e)
+    e.persist();
+    // console.log("form" + e)
+    props.handleSignIn(e)
   }
 
   const linkClick = () => {
   console.log("Retrieve PW")
-    // props.handleSignIn(e)
   }
 
 
@@ -97,16 +96,18 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form onSubmit={() => formSubmit()} className={classes.form} noValidate>
+          <form onSubmit={formSubmit} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="User Name"
+              name="username"
+              value={values.username}
+              onChange={handleChange('username')}
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -118,6 +119,8 @@ export default function SignIn(props) {
               label="Password"
               type="password"
               id="password"
+              value={values.password}
+              onChange={handleChange('password')}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -130,7 +133,7 @@ export default function SignIn(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => btnClick()}
+
             >
               Sign In
             </Button>

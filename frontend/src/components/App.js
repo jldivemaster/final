@@ -10,28 +10,34 @@ import SignInContainer from './SignInContainer'
 // ***  Set Proper server URLS ==============
 const users_url = 'http://localhost:3000/users'
 const notes_url = 'http://localhost:3000/notes'
+const login_url = 'http://localhost:3000/login'
+const logout_url = 'http://localhost:3000/logout'
 
 //========== Temp seed data===============
-const user = { name: "Jason Leach", email: "asdf@gmail.com", current_mod: 4, location: "Seattle"}
-const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.'
+const user = { name: "Jason Leach", username: "jgl", current_mod: 4, location: "Seattle"}
+const body = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet natus sint provident vel ab reprehenderit cum soluta, suscipit facere nisi sed earum repellendus fuga debitis, nam molestiae minima voluptates possimus.  Now let us go and make this fucker a really long facking text string. asf;dgojneqrgpqeorinvq[erofjknq  wer[boianrs[efojkwnef;qlaeijbvPSEINF wlekvnafrviojasdf;vkansr;vakrnv;aer]]] '
 const quick_ref = "reference to notes"
-const data = [
+const notes = [
   {
+    id: 1,
     title: 'Lab 1 Title',
     body,
     quick_ref
   },
   {
+    id: 2,
     title: 'Concepts',
     body,
     quick_ref
   },
   {
+    id: 3,
     title: 'Lab Syntax',
     body,
     quick_ref
   },
   {
+    id: 4,
     title: 'Practice Lab',
     body,
     quick_ref
@@ -44,7 +50,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      signedIn: true,
+      signedIn: false,
       signInView: "Sign In",
       message: "",
       user: {},
@@ -65,29 +71,48 @@ class App extends React.Component {
     }
   };
 
-  handleSignIn(e) {
-    console.log(e.target)
-    // let user_id;
-    // fetch(users_url + "/" + user_id).then(res => res.json())
-    //   .then(data => { console.log(data);
-          // return this.setUser(user);
-    // })
-    // if(valid credentials) {
-    this.setState({
-      signedIn: true,
-      user: data.user,
-      notes: [...data.user.notes],
-      filteredNotes: [...data.user.notes],
-    })
+  handleSignIn = (e) => {
+    // console.log("sign in", e.target.children)
+    let username = e.target[0].value;
+    let password = e.target[2].value;
+    console.log(username, password)
+    const dataObj = {
+      'username': username,
+      'password': password,
+      'password_confirmation': password
+    };
+    const configObj = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(dataObj)
+    }
+    fetch(login_url, configObj).then(res => res.json())
+      .then(data => { console.log(data);
+
+      this.setState({
+          signedIn: true })
+
+    //     user: data.user,
+    //     notes: [...data.user.notes],
+    //     filteredNotes: [...data.user.notes],
+    //   })
     // } else {
     // this.setState({
     //   signInView: "Sign In Fail"
     // })
     // }
+    })
   };
 
   handleSignOut = (e) => {
     console.log(e.target)
+
+    fetch(logout_url).then(res => res.json())
+      .then(data => { console.log(data);
+
     this.setState({
         signedIn: false,
         signInView: "Sign In",
@@ -95,26 +120,31 @@ class App extends React.Component {
         user: {},
         notes: [],
         filteredNotes: []
+      })
     })
   };
 
-  handlecreateUser = (e) => {
-    console.log(e.target);
-        // const dataObj = {
-        //   'first_name': '',
-        //   'last_name': '',
-        //   'username': '',
-        //   'password': ''
-        // };
-        // const configObj = {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'Accept': 'application/json'
-        //   },
-        //   body: JSON.stringify(dataObj)
-        // }
-        // fetch(users_url, configObj).then(resp => resp.json).then(console.log)
+  handleRegister = (e) => {
+    let fName = e.target[0].value;
+    let lName = e.target[2].value;
+    let userName = e.target[4].value;
+    let password = e.target[6].value;
+    console.log(fName, lName, userName, password)
+        const dataObj = {
+          'first_name': fName,
+          'last_name': lName,
+          'username': userName,
+          'password': password
+        };
+        const configObj = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(dataObj)
+        }
+        fetch(users_url, configObj).then(resp => resp.json()).then(data => console.log("created", data))
       //   if(reg successful) {
       //   this.setState({
       //     SignInView: "Register Success"
@@ -126,9 +156,25 @@ class App extends React.Component {
       // }
   };
 
+  handleNoteChange = (note) => {
+    const dataObj = {
+      body: note.body,
+      quick_ref: note.quick_ref
+    };
+    const configObj = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(dataObj)
+    }
+    fetch(notes_url + '/' + note.id, configObj).then(res => res.json()).then(data => console.log("Note updated", data))
+  };
 
 
-    handleSearch(e) {
+
+    handleSearch = (e) => {
       if(e.target.value === "") {
         this.setState({
           filteredNotes: this.state.notes
@@ -155,19 +201,19 @@ class App extends React.Component {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList data={data} mod="0" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+              <NoteList notes={notes} mod="0" handleNoteChange={this.handleNoteChange} />
             </div>
               <div label="Mod 1">
-                <NoteList data={data} mod="1" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="1" handleNoteChange={this.handleNoteChange} />
               </div>
               <div label="Mod 2">
-                <NoteList data={data} mod='2' title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod='2' handleNoteChange={this.handleNoteChange} />
               </div>
               <div label="Mod 3">
-                <NoteList data={data} mod="3" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="3" handleNoteChange={this.handleNoteChange} />
               </div>
               <div label="Mod 4">
-                <NoteList data={data} mod="4" title1="Lab 1 Title" title2="Lab 2 Title" ref1="Quick Refs 1" ref2="Quick Refs 2"/>
+                <NoteList notes={notes} mod="4" handleNoteChange={this.handleNoteChange} />
               </div>
 
             </Main>
@@ -175,7 +221,7 @@ class App extends React.Component {
       </div>
     )} else {
       return (
-        <SignInContainer toggleView={this.toggleView} selectView={this.state.signInView}/>
+        <SignInContainer handleRegister={this.handleRegister} handleSignIn={this.handleSignIn} toggleView={this.toggleView} selectView={this.state.signInView}/>
       )}
     };
 
