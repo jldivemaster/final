@@ -23,11 +23,12 @@ export default class SearchResults extends React.Component {
           {this.props.notes.map((note, key) => {
             return (
               <li {...{ className: "accordian-list__item", key }}>
-                <Note {...note} />
+                <Note {...note} handleNoteDelete={this.props.handleNoteDelete}/>
               </li>
             )
           })}
         </ul>
+        <button onClick={this.props.returnHome}>Return to Home Page</button>
       </div>
     )
   }

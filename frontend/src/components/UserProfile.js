@@ -8,8 +8,8 @@ export default class UserProfile extends React.Component {
     super(props)
   this.state = {
     editing: false,
-    firstname: (this.props.user.first_name),
-    lastname: (this.props.user.last_name),
+    firstname: this.props.user.first_name,
+    lastname: this.props.user.last_name,
     username: this.props.user.username,
     location: this.props.user.location,
     program: this.props.user.program,
@@ -42,7 +42,7 @@ export default class UserProfile extends React.Component {
  //  }
 
  handleChange = name => (e) => {
-   console.log(name, e[name])
+   // console.log(name, e[name])
     this.setState({ [name]: e[name] })
  }
 
@@ -58,7 +58,7 @@ export default class UserProfile extends React.Component {
 
 
   render() {
-    console.log(this.props.user)
+    // console.log(this.props.user)
     if (this.state.editing) {
       return (
         <div id="profile">
@@ -107,4 +107,4 @@ export default class UserProfile extends React.Component {
 // <h4 contentEditable onChange={this.handleChange('username')}>{this.state.username}</h4>
 // <h4 contentEditable onChange={this.handleChange('location')}>{this.state.location}</h4>
 // <h4 contentEditable onChange={this.handleChange('program')}>{this.state.program}</h4>
-// <h4 onChange={this.handleChange('mod')}>{this.state.mod}</h4>
+// <h4 contentEditable onChange={this.handleChange('mod')}>{this.state.mod}</h4>

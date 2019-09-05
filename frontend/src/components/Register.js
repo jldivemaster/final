@@ -55,10 +55,30 @@ const useStyles = makeStyles(theme => ({
 export default function Register(props) {
   const classes = useStyles();
 
-  function createUser(e) {
-    // e.preventDefault();
-    // props.createUser(e);
-  }
+  const [values, setValues] = React.useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    password: "",
+    password2: ""
+  });
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    e.persist();
+    props.handleRegister(e)
+  };
+
+  const handleChange = name => (e) => {
+    setValues({...values, [name]: e.target.value })
+  };
+
+  const createUser = (e) => {
+    e.preventDefault();
+    e.persist();
+    // console.log("form" + e)
+    props.handleSignIn(e)
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -73,17 +93,19 @@ export default function Register(props) {
           Sign up
         </Typography>
 
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleRegister} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
+                autoComplete="firstname"
                 name="firstName"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={values.firstname}
+                onChange={handleChange('firstname')}
                 autoFocus
               />
             </Grid>
@@ -95,7 +117,9 @@ export default function Register(props) {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
-                autoComplete="lname"
+                value={values.lastname}
+                onChange={handleChange('lastname')}
+                autoComplete="lastname"
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,10 +127,12 @@ export default function Register(props) {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="User Name"
+                name="username"
+                value={values.username}
+                onChange={handleChange('username')}
+                autoComplete="username"
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,7 +144,23 @@ export default function Register(props) {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                value={values.password}
+                onChange={handleChange('password')}
+                autoComplete=""
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password2"
+                label="Confirm Password"
+                type="password2"
+                id="password2"
+                value={values.password2}
+                onChange={handleChange('password2')}
+                autoComplete=""
               />
             </Grid>
           </Grid>
@@ -128,7 +170,6 @@ export default function Register(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onSubmit={createUser()}
           >
             Sign Up
           </Button>
