@@ -1,23 +1,28 @@
 .header{
-  min-height: 25vh;
-  width: 100%;
+  min-height: 37vh;
   display: flex;
-  padding-bottom: 0px;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  margin-bottom: 0;
-  /* align-items: center; */
-  /* justify: space-around; */
 }
 
 .head-title{
-  margin-top: 0;
-  margin-bottom: 0;
-  /* align-items: center; */
+  font-style: italic;
+}
+
+.head-subtitle{
+  font-style: italic;
+}
+
+.credit{
+  font-style: italic;
+  text-align: left;
+  font-size: 0.8rem;
+  color: rgb(60, 60, 60);
+
 }
 
 .background{
-  height: 100%
+  /* height: 100%; */
+  width: 100;
 }

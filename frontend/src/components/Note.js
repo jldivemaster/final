@@ -2,6 +2,7 @@ import React from 'react';
 // import classnames from 'classnames';
 import NoteContent from './NoteContent';
 import RefContent from './RefContent';
+import NoteTextInput from './NoteTextInput'
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit'
@@ -52,6 +53,7 @@ export default class Note extends React.Component {
   handleChange = name => (e) => {
     // console.log(name, e[name])
      this.setState({ [name]: e[name] })
+     console.log(this.state)
   }
 
 
@@ -71,9 +73,9 @@ export default class Note extends React.Component {
   }
 
   refView = () => {
-    if(this.state.editingRef) {
+    if(this.state.editingBody) {
       return(
-        <RIEInput name="ref" value={this.state.ref} change={this.handleChange('ref')} propName='ref' validate={_.isString} />
+        <NoteTextInput name="ref" value={this.state.ref} handleChange={this.handleChange('ref')} />
       )} else {
         return(
           <h3>{this.setValue(this.state.ref)}</h3>
@@ -83,12 +85,21 @@ export default class Note extends React.Component {
   bodyView = () => {
     if(this.state.editingBody) {
       return(
-        <RIEInput name="body" value={this.state.body} change={this.handleChange('body')} propName='body' validate={_.isString} />
+        <NoteTextInput name="body" value={this.state.body} handleChange={this.handleChange('body')} />
       )} else {
         return(
           <h4>{this.setValue(this.state.body)}</h4>
         )}
   };
+
+  setEditPrompt = () => {
+    console.log("prompt fired")
+    if(this.state.editingBody) {
+      return('Editing - Reclick to save changes')
+    } else {
+      return('Click to edit')
+    }
+  }
 
   render() {
     // let id = "deletebtn-" + this.props.id
@@ -104,8 +115,8 @@ export default class Note extends React.Component {
       <div
         {...{ className: `accordion-item, ${opened && 'accordion-item--opened'}`,
       }} >
-        <div {...{ className: 'accordion-item__line', onClick: () => { this.setState({ opened: !opened }) } }}>
-            <h3 {...{ className: 'accordion-item__title' }}>
+        <div {...{ className: 'accordion-item__line' }}>
+            <h3 {...{ className: 'accordion-item__title', onClick: () => { this.setState({ opened: !opened }) } }}>
               {this.props.lab_title}
             </h3>
             <h4 {...{ className: 'accordion-item__ref' }} onDoubleClick={this.toggleRefEdit}>
@@ -119,9 +130,10 @@ export default class Note extends React.Component {
                   <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
                    {this.bodyView()}
                   </div>
-                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.handleEdit} >
+                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleBodyEdit} >
                   <EditIcon />
                   </Fab>
+                  <h4 {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</h4>
               </div>
             </div>
         </div>

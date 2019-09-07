@@ -33,7 +33,6 @@ export default class Main extends React.Component {
 
     return (
       <div className="tabs">
-      <h1 id="main-title"> Main Container </h1>
         <ol className="tab-list">
           {children.map((child) => {
             const { label } = child.props;

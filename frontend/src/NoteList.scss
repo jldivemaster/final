@@ -123,10 +123,15 @@ background-image: url("https://www.transparenttextures.com/patterns/notebook-dar
     padding: 0 1.2rem 1.2rem;
   }
 
+  &__prompt{
+    font-size: 3rem;
+    color: red;
+  }
+
   &__body{
     margin: 0;
     font-size: 1.5rem;
-    color: white;
+    color: blue;
     font-weight: 300;
     line-height: 1.3;
   }

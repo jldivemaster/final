@@ -7,7 +7,7 @@
   background-color: #1f1f1f;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-   min-height: 100vh;
+   min-height: 130vh;
    font-size: calc(10px + 2vmin);
    color: white;
   }
@@ -30,11 +30,6 @@
 //   color: blue;
 // }
 
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -49,7 +44,7 @@
 
 /* ====== Tab Bar Elements ======================== */
 .main {
-
+  // min-height: 200
 }
 
 .sign-in{
@@ -59,13 +54,11 @@
 }
 
 #main-title{
-  padding-top: 0;
+  // padding-top: 0;
 }
 
 .profile-tab {
-  // position: relative;
-  float: right;
-  // left: 150px;
+
 }
 
 .tab-list {
@@ -86,5 +79,5 @@
 .tab-list-active {
   background-color: blue;
   border: solid #ccc;
-  border-width: 1px 1px 0 1px;
+  border-width: 2px 2px 0 2px;
 }

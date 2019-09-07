@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NoteTextInput from './NoteTextInput';
 
 export default class NoteContent extends Component {
 
@@ -26,6 +27,7 @@ export default class NoteContent extends Component {
   };
 
   render() {
+    console.log(this.props)
     const { ...otherAttributes } = this.props;
     return(
       <p ref={(ref) => {this.nodeSelect = ref} }
