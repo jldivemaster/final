@@ -1,6 +1,7 @@
 import React from 'react'
 import SignIn from './SignIn'
 import Register from './Register'
+import '../App.scss'
 
 export default class SignInContainer extends React.Component {
   constructor(props) {
@@ -12,13 +13,13 @@ export default class SignInContainer extends React.Component {
    render() {
      switch(this.props.selectView) {
        case 'Sign In':
-        return(<div>
+        return(<div  className='sign-in'>
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} />
                </div>);
        case 'Register':
         return(<div>
                 <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} />
-                </div>);
+                </div> );
        case 'Register Success':
         return(<div>
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="Your account has been created!  Log in to continue."/>

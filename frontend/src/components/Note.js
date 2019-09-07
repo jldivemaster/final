@@ -2,9 +2,18 @@ import React from 'react';
 // import classnames from 'classnames';
 import NoteContent from './NoteContent';
 import RefContent from './RefContent';
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit'
 import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
 import _ from 'lodash'
 // import style from '../Note.css'
+
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(1),
+  }
+}));
 
 export default class Note extends React.Component {
 
@@ -13,6 +22,7 @@ export default class Note extends React.Component {
     this.state = { opened: false,
               editingRef: false,
               editingBody: false,
+              message: this.props.message,
               body: this.props.body,
               ref: this.props.quick_ref }
   }
@@ -52,13 +62,21 @@ export default class Note extends React.Component {
     this.props.handleNoteDelete(id)
   }
 
+  setValue = (value) => {
+    if(value == null) {
+      return "none"
+    } else {
+      return value
+    }
+  }
+
   refView = () => {
     if(this.state.editingRef) {
       return(
         <RIEInput name="ref" value={this.state.ref} change={this.handleChange('ref')} propName='ref' validate={_.isString} />
       )} else {
         return(
-          <h3>{this.state.ref}</h3>
+          <h3>{this.setValue(this.state.ref)}</h3>
         )}
   }
 
@@ -68,15 +86,15 @@ export default class Note extends React.Component {
         <RIEInput name="body" value={this.state.body} change={this.handleChange('body')} propName='body' validate={_.isString} />
       )} else {
         return(
-          <h4>{this.state.body}</h4>
+          <h4>{this.setValue(this.state.body)}</h4>
         )}
-  }
+  };
 
   render() {
-    let id = "deletebtn-" + this.props.id
+    // let id = "deletebtn-" + this.props.id
     // console.log(this.props)
     const {
-      props: { lab_title, quick_ref, body },
+      props: { lab_title, quick_ref, body,  },
       state: { opened }
          } = this
 
@@ -101,8 +119,9 @@ export default class Note extends React.Component {
                   <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
                    {this.bodyView()}
                   </div>
-                  <button id="edit-btn" onClick={this.handleEdit}>Edit</button>
-                  <button id={id} onClick={this.handleDelete}>Delete</button>
+                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.handleEdit} >
+                  <EditIcon />
+                  </Fab>
               </div>
             </div>
         </div>
@@ -111,6 +130,8 @@ export default class Note extends React.Component {
 
 }
 
+
+// <button id={id} onClick={this.handleDelete}>Delete</button>
 // <NoteContent html={this.state.bodyHtml} editing={this.state.editing} onChange={this.handleBodyEdit} />
 // <RefContent html={this.state.refHtml} editing={this.state.editing} onChange={this.handleRefEdit} />
 // {classnames({

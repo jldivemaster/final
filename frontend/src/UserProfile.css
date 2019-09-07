@@ -4,7 +4,7 @@
 }
 
 .profile-list {
-  max-width: 80vh;
+  max-width: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

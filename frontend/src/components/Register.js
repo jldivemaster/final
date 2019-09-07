@@ -90,7 +90,7 @@ export default function Register(props) {
   // }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="body" maxWidth="xs">
       <CssBaseline />
 
       <div className={classes.paper}>

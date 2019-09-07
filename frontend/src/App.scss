@@ -1,23 +1,34 @@
 .App {
   text-align: center;
-}
+  height: 100%;
+  //   background-color: #6a656e;
+  // background-image: url("https://www.transparenttextures.com/patterns/grunge-wall.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  background-color: #1f1f1f;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+   min-height: 100vh;
+   font-size: calc(10px + 2vmin);
+   color: white;
+  }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
+// .App-logo {
+//   animation: App-logo-spin infinite 20s linear;
+//   height: 40vmin;
+//   pointer-events: none;
+// }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 25vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+// .App-header {
+//   // background-color: #282c34;
+//   min-height: 35vh;
+//   display: flex;
+//   // padding-bottom: 0px;
+//   // flex-direction: column;
+//   // align-items: center;
+//   justify-content: center;
+//   font-size: calc(10px + 2vmin);
+//   color: blue;
+// }
 
 
 .App-link {
@@ -38,15 +49,23 @@
 
 /* ====== Tab Bar Elements ======================== */
 .main {
-  background-color: #282c34;
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+}
+
+.sign-in{
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#main-title{
+  padding-top: 0;
 }
 
 .profile-tab {
-  position: relative;
-  left: 150px;
+  // position: relative;
+  float: right;
+  // left: 150px;
 }
 
 .tab-list {

@@ -4,17 +4,23 @@ import '../Header.css';
 import '../App.scss';
 import '../logo512.png'
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, InputBase, Divider, IconButton, Button } from '@material-ui/core';
+import { Paper, InputBase, Divider, IconButton, Button, Grid } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    // display: 'grid',
+    width: '100%',
+  },
   root: {
-    padding: '1.5px 3px',
+    padding: '3px 3px 3px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: '80%',
+    marginLeft: theme.spacing(3),
+    // marginBottom: theme.spacing(0),
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -28,7 +34,11 @@ const useStyles = makeStyles(theme => ({
     margin: 4,
   },
   button: {
-    alignSelf: 'flex-end',
+    float: 'right',
+    marginLeft: theme.spacing(3),
+    display: 'block',
+    // position: 'relative',
+    // marginBottom: theme.spacing(0),
   }
 }));
 
@@ -54,7 +64,9 @@ export default function Header(props) {
 
     if(props.showSearchBar) {
     return(
-      <div className="header">
+      <div>
+      <Grid className={classes.container} spacing={4} className={classes.container}>
+      <Grid item xs={9}>
       <Paper id="search-bar" className={classes.root}>
         <InputBase
           className={classes.input}
@@ -72,20 +84,21 @@ export default function Header(props) {
           <AssignmentIcon />
         </IconButton>
       </Paper>
-      <Button variant="contained" color="primary" className={classes.button} onClick={props.onSignOut}>
+      </Grid>
+      <Grid item xs={2} className={classes.button}>
+      <Button variant="contained" onClick={props.onSignOut}>
         Log Out</Button>
+      </Grid>
+      </Grid>
     </div>
     )
   }};
 
   let bg = require('../logo512.png')
   return (
-    <div id="header">
-    <div className="background" style ={ { backgroundImage: "url("+bg+")" } }>
-
-        <h2>Header</h2>
-        <div>{showSearchBar()}</div>
-    </div>
+    <div className="header" style ={ { backgroundImage: "url("+bg+")" } }>
+        <h2 className='head-title'>Header</h2>
+        {showSearchBar()}
     </div>
   );
 }

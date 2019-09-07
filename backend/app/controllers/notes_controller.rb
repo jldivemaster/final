@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
   def index
     @notes = Note.all
     # @mynotes = Note.all.filter{|note| note.user_id == current_user.id}
@@ -34,7 +36,8 @@ class NotesController < ApplicationController
 
   def destroy
     @note.delete
-    # render json:
+    @notes = Note.all
+    render json: { notes: @notes, error: @note.errors.full_messages, message: "Note deleted" }
   end
 
   private

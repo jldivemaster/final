@@ -1,7 +1,23 @@
-#header{
-  width: 100%
+.header{
+  min-height: 25vh;
+  width: 100%;
+  display: flex;
+  padding-bottom: 0px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  margin-bottom: 0;
+  /* align-items: center; */
+  /* justify: space-around; */
+}
+
+.head-title{
+  margin-top: 0;
+  margin-bottom: 0;
+  /* align-items: center; */
 }
 
 .background{
-
+  height: 100%
 }

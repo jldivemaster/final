@@ -21,7 +21,8 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100vh',
+    height: '70vh',
+    margin: theme.spacing(0, 0)
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(8, 4, 2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -83,7 +84,7 @@ export default function SignIn(props) {
   };
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container component='main' className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

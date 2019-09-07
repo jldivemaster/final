@@ -80,6 +80,7 @@ class App extends React.Component {
                 signedIn: true,
                 user: data.user,
                 notes: [...data.notes],
+                message: "",
                 filteredNotes: [...data.notes]
               })
         }
@@ -239,21 +240,23 @@ handleUserEdit = (e) => {
   };
 
     handleNoteDelete = (id) => {
-      // const dataObj = {
-      //   'lab_title': title,
-      //   'quick_ref': ref,
-      //   'body': body,
-      // }
+      console.log('fired', id)
+
+
       const configObj = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-        // },
-        // body: JSON.stringify(dataObj)
       }
     }
-      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => { console.log(data) })
+      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
+        if(data.error) {
+          this.setState({ message: data.error })
+        } else {
+          this.setState({ message: data.message,
+                          notes: [...this.data.notes] })
+        } })
     };
 
     handleNoteEdit = (id) => {
@@ -280,11 +283,8 @@ handleUserEdit = (e) => {
 
 render() {
   return(
-    <div>
-      <header className="App-header">
-         <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
-      </header>
-
+    <div className="App">
+     <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
      {this.signedIn()}
     </div>
 )};
@@ -292,9 +292,9 @@ render() {
     signedIn() {
       if(this.state.signedIn && !this.state.searching) {
      return (
-      <div className="App">
-        <div className="main">
-            <Main>
+      <div>
+
+            <Main className="main">
 
             <div className="profile-tab" label="My Profile">
               <UserProfile user={this.state.user} editing={this.state.editingUser} startUserEdit={this.startUserEdit} handleUserEdit={this.handleUserEdit}/>
@@ -302,26 +302,24 @@ render() {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList notes={this.notesByMod(0)} mod="0" handleNoteDelete={this.handleNoteDelete} />
+              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
             </div>
               <div label="Mod 1">
-                <NoteList notes={this.notesByMod(1)} mod="1" handleNoteDelete={this.handleNoteDelete} />
+                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
               </div>
               <div label="Mod 2">
-                <NoteList notes={this.notesByMod(2)} mod='2' handleNoteDelete={this.handleNoteDelete} />
+                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
               </div>
               <div label="Mod 3">
-                <NoteList notes={this.notesByMod(3)} mod="3" handleNoteDelete={this.handleNoteDelete} />
+                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
               </div>
               <div label="Mod 4">
-                <NoteList notes={this.notesByMod(4)} mod="4" handleNoteDelete={this.handleNoteDelete} />
+                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
               </div>
-
             </Main>
-        </div>
       </div>
     )} else if (this.state.signedIn && this.state.searching) {
-      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} /> )
+      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} />)
     } else {
       return (
         <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
