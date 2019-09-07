@@ -50,6 +50,11 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  message: {
+    fontFamily: "Courier New",
+    fontSize: '15px',
+    fontStyle: 'italic'
+  }
 }));
 
 export default function Register(props) {
@@ -80,6 +85,10 @@ export default function Register(props) {
     props.handleSignIn(e)
   };
 
+  // const showMessage = () => {
+  //   return props.message
+  // }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -88,7 +97,9 @@ export default function Register(props) {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <h2>{props.message}</h2>
+        <Typography className={classes.message} component="h4" variant="h5" color="secondary">
+          {props.message}
+        </Typography>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -156,7 +167,7 @@ export default function Register(props) {
                 fullWidth
                 name="password2"
                 label="Confirm Password"
-                type="password2"
+                type="password"
                 id="password2"
                 value={values.password2}
                 onChange={handleChange('password2')}

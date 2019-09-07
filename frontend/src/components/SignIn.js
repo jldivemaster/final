@@ -46,9 +46,15 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  message: {
+    fontFamily: "Courier New",
+    fontSize: '15px',
+    fontStyle: 'italic'
+  }
 }));
 
 export default function SignIn(props) {
+  // console.log(props)
   let classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -76,7 +82,6 @@ export default function SignIn(props) {
     console.log("Retrieve PW")
   };
 
-
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -86,7 +91,9 @@ export default function SignIn(props) {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>{props.message}</h2>
+          <Typography className={classes.message} component="h4" variant="h5" color="secondary">
+            {props.message}
+          </Typography>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -132,9 +139,7 @@ export default function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" onClick={() => linkClick()} variant="body2">
-                  Forgot password?
-                </Link>
+
               </Grid>
               <Grid item>
                 <Link href="#" onClick={props.toggleView} variant="body2">
@@ -151,3 +156,7 @@ export default function SignIn(props) {
     </Grid>
   );
 }
+
+// <Link href="#" onClick={() => linkClick()} variant="body2">
+//   Forgot password?
+// </Link>

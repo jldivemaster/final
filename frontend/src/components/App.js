@@ -35,11 +35,11 @@ class App extends React.Component {
 
 // =========== View Navigation ======================
   toggleView = () => {
-    if(this.state.signInView === "Sign In") {
+    if((this.state.signInView === "Sign In") || (this.state.signInView === "Sign In Fail") || (this.state.signInView === "Register Success")) {
       this.setState({
         signInView: "Register"
                })
-    } else if(this.state.signInView === "Register") {
+    } else if((this.state.signInView === "Register") || (this.state.signInView === "Register Fail")) {
       this.setState({
         signInView: "Sign In"
                })
@@ -57,9 +57,9 @@ class App extends React.Component {
     let password = e.target[2].value;
 
       const dataObj = {
-        'username': username,
-        'password': password,
-        'password_confirmation': password
+        username: username,
+        password: password,
+        password_confirmation: password
       }
       const configObj = {
         method: 'POST',
@@ -72,21 +72,28 @@ class App extends React.Component {
 
     fetch(login_url, configObj).then(res => res.json())
       .then(data => {
-      this.setState({
-                    signedIn: true,
-                    user: data.user,
-                    notes: [...data.notes],
-                    filteredNotes: [...data.notes]
-                  })
-          })
+        if(data.error) {
+          console.log(data)
+          this.setState({ signInView: 'Sign In Fail', message: data.error })
+        } else {
+          this.setState({
+                signedIn: true,
+                user: data.user,
+                notes: [...data.notes],
+                filteredNotes: [...data.notes]
+              })
+        }
+      })
+      .catch(function(error) {
+        alert("Async error in fetch. Check console log.");
+        console.log(error.message);;
+      })
   };
 
-  handleSignOut = (e) => {
-    console.log(e.target)
+  handleSignOut = () => {
     this.setState({
         signedIn: false,
-        signInView: "Sign In",
-        message: "",
+        signInView: "Sign Out",
         searching: false,
         user: {},
         notes: [],
@@ -102,32 +109,38 @@ class App extends React.Component {
     let password = e.target.children[0].children[3].firstChild.lastChild.firstChild.value
     let password_confirmation = e.target.children[0].children[4].firstChild.lastChild.firstChild.value
      // console.log(firstName, lastName, username, password, password_confirmation)
-        const dataObj = {
-          'first_name': firstName,
-          'last_name': lastName,
-          'username': username,
-          'password': password,
-          'password_confirmation': password_confirmation
-        };
-        const configObj = {
+        let dataObj = {
+          user: {
+          first_name: firstName,
+          last_name: lastName,
+          username: username,
+          password: password,
+          password_confirmation: password_confirmation
+        }};
+        let configObj = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
           body: JSON.stringify(dataObj)
+        };
+      fetch(users_url, configObj).then(resp => resp.json()).then(data => {
+        if(data.error) {
+          // console.log(data)
+          this.setState({ signInView: "Register Fail", message: ('Registration error: ' + data.error) })
+        } else {
+          this.setState({
+            signInView: "Register Success"
+          })
         }
-        fetch(users_url, configObj).then(resp => resp.json).then(data => console.log(data))
-      //   if(reg successful) {
-      //   this.setState({
-      //     SignInView: "Register Success"
-      //   })
-      // } else {
-      //   this.setState({
-      //     SignInView: "Register Fail"
-      //   })
-      // }
+      }).catch(function(error) {
+        alert("Async Error in fetch. Check console log.");
+        console.log(error.message);
+      })
+
   };
+
 
 // =========== Profile Update ============================
 
@@ -175,6 +188,9 @@ handleUserEdit = (e) => {
                   user: data.user,
                   // editingUser: false
                 })
+        }).catch(function(error) {
+          alert("Async Error in fetch. Check console log.");
+          console.log(error.message);
         })
 }
 
@@ -308,7 +324,7 @@ render() {
       return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} /> )
     } else {
       return (
-        <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView}/>
+        <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
       )}
     };
 

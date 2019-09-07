@@ -13,11 +13,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-    if @user.save
-      redirect_to @user
+    @user = User.new(user_params)
+    # byebug
+    if @user.valid?
+      @user.save
+      render json: { user: @user }
     else
-      render json: { error: "User credentials invalid." }
+      render json: { error: @user.errors.full_messages }
     end
   end
 
@@ -44,7 +46,7 @@ class UsersController < ApplicationController
         notes: @notes
       }
     else
-      render json: { error: "Unable to update." }
+      render json: { error: @user.errors.full_messages }
     end
   end
 
@@ -56,7 +58,7 @@ class UsersController < ApplicationController
   private
 
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :username, :location, :program, :current_mod, :type, :password)
+        params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :location, :program, :current_mod, :type)
       end
 
       def set_user

@@ -56,6 +56,14 @@ export default class UserProfile extends React.Component {
    this.setState({ editing: false })
  }
 
+ setValue = (value) => {
+   if(value == null) {
+     return "  none"
+   } else {
+     return "  " + value
+   }
+ }
+
 
   render() {
     // console.log(this.props.user)
@@ -65,22 +73,22 @@ export default class UserProfile extends React.Component {
           <h1>User Profile</h1>
           <div className="profile-list">
             <ul id="firstname"> First Name:
-              <RIEInput name='firstname' value={this.state.firstname} change={this.handleChange('firstname')} propName='firstname' validate={_.isString} />
+              <RIEInput name='firstname' value={this.setValue(this.state.firstname)} change={this.handleChange('firstname')} propName='firstname' validate={_.isString} />
             </ul>
             <ul id="lastname"> Last Name:
-              <RIEInput name='lastname' value={this.state.lastname} change={this.handleChange('lastname')} propName='lastname' validate={_.isString} />
+              <RIEInput name='lastname' value={this.setValue(this.state.lastname)} change={this.handleChange('lastname')} propName='lastname' validate={_.isString} />
             </ul>
             <ul id="username"> User Name:
-              <RIEInput name='username' value={this.state.username} change={this.handleChange('username')} propName='username' validate={_.isString} />
+              <RIEInput name='username' value={this.setValue(this.state.username)} change={this.handleChange('username')} propName='username' validate={_.isString} />
             </ul>
             <ul id="location"> Location:
-              <RIEInput name='location' value={this.state.location} change={this.handleChange('location')} propName='location' validate={_.isString} />
+              <RIEInput name='location' value={this.setValue(this.state.location)} change={this.handleChange('location')} propName='location' validate={_.isString} />
             </ul>
             <ul id="program"> Program:
-              <RIEInput name='program' value={this.state.program} change={this.handleChange('program')} propName='program' validate={_.isString} />
+              <RIEInput name='program' value={this.setValue(this.state.program)} change={this.handleChange('program')} propName='program' validate={_.isString} />
             </ul>
             <ul id="mod"> Mod #
-              <RIEInput name='mod' value={this.state.mod} change={this.handleChange('mod')} propName='mod' validate={_.isString} />
+              <RIEInput name='mod' value={this.setValue(this.state.mod)} change={this.handleChange('mod')} propName='mod' validate={_.isString} />
             </ul>
             <button onClick={this.handleUserEdit}>Save Edit</button>
           </div>

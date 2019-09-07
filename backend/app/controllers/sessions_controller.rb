@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
   def create
 
     user = User.find_by(username: params['username']).try(:authenticate, params['password'])
-    notes = user.notes
     # byebug
     if user
+      notes = user.notes
       session[:username] = user.username.to_s
       render json: {
         logged_in: true,
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         notes: notes
       }
     else
-      render json: { status: 401 }
+      render json: { error: "Sign in error" }
     end
 
   end

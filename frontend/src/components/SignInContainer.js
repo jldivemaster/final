@@ -13,27 +13,31 @@ export default class SignInContainer extends React.Component {
      switch(this.props.selectView) {
        case 'Sign In':
         return(<div>
-                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message=""/>
+                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} />
                </div>);
        case 'Register':
         return(<div>
-                <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} message="registering"/>
+                <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} />
                 </div>);
        case 'Register Success':
         return(<div>
-                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="account created"/>
+                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="Your account has been created!  Log in to continue."/>
                </div>);
       case 'Register Fail':
         return(<div>
-                <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} message="registration failed"/>
+                <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} message={this.props.message}/>
               </div>);
       case 'Sign In Fail':
         return(<div>
-                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="signIn failed"/>
+                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message={this.props.message}/>
+              </div>);
+      case 'Sign Out':
+        return(<div>
+                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="You are logged out." />
               </div>);
        default:
         return(<div>
-                <SignIn />
+                <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="Default hit. Check switch in container component." />
                </div>)
      }
    }
