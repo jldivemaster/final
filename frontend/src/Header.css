@@ -1,7 +1,28 @@
-#header{
-  width: 100%
+.header{
+  min-height: 37vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.head-title{
+  font-style: italic;
+}
+
+.head-subtitle{
+  font-style: italic;
+}
+
+.credit{
+  font-style: italic;
+  text-align: left;
+  font-size: 0.8rem;
+  color: rgb(60, 60, 60);
+
 }
 
 .background{
-
+  /* height: 100%; */
+  width: 100;
 }

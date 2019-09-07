@@ -1,63 +1,139 @@
 import React from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import NoteContent from './NoteContent';
 import RefContent from './RefContent';
+import NoteTextInput from './NoteTextInput'
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit'
+import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
+import _ from 'lodash'
+// import style from '../Note.css'
 
-import  style from '../Note.css'
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(1),
+  }
+}));
 
 export default class Note extends React.Component {
 
   constructor(props, context){
     super(props, context);
     this.state = { opened: false,
-              editing: false,
-              bodyHtml: this.props.body,
-              refHtml: this.props.quick_ref }
+              editingRef: false,
+              editingBody: false,
+              message: this.props.message,
+              body: this.props.body,
+              ref: this.props.quick_ref }
   }
 
   handleBodyEdit = (e) => {
     console.log('editing' + e)
-    this.setState({ bodyHtml: e.target.value})
+    this.setState({ body: e.target.value})
   };
 
   handleRefEdit = (e) => {
     console.log('editing' + e)
-    this.setState({ refHtml: e.target.value})
+    this.setState({ ref: e.target.value})
   };
 
-  toggleEditable = () => {
+  toggleRefEdit = () => {
     this.setState({
-      editing: !this.state.editing
+      editingRef: !this.state.editingRef
     })
   }
 
+  toggleBodyEdit = () => {
+    this.setState({
+      editingBody: !this.state.editingBody
+    })
+  }
+
+  handleChange = name => (e) => {
+    // console.log(name, e[name])
+     this.setState({ [name]: e[name] })
+     console.log(this.state)
+  }
+
+
+  handleDelete = (e) => {
+    e.persist();
+    console.log(e.target.id)
+    let id = e.target.id.split("-")[1]
+    this.props.handleNoteDelete(id)
+  }
+
+  setValue = (value) => {
+    if(value == null) {
+      return "none"
+    } else {
+      return value
+    }
+  }
+
+  refView = () => {
+    if(this.state.editingBody) {
+      return(
+        <NoteTextInput name="ref" value={this.state.ref} handleChange={this.handleChange('ref')} />
+      )} else {
+        return(
+          <h3>{this.setValue(this.state.ref)}</h3>
+        )}
+  }
+
+  bodyView = () => {
+    if(this.state.editingBody) {
+      return(
+        <NoteTextInput name="body" value={this.state.body} handleChange={this.handleChange('body')} />
+      )} else {
+        return(
+          <h4>{this.setValue(this.state.body)}</h4>
+        )}
+  };
+
+  setEditPrompt = () => {
+    console.log("prompt fired")
+    if(this.state.editingBody) {
+      return('Editing - Reclick to save changes')
+    } else {
+      return('Click to edit')
+    }
+  }
+
   render() {
+    // let id = "deletebtn-" + this.props.id
+    // console.log(this.props)
     const {
-      // props: { note },
+      props: { lab_title, quick_ref, body,  },
       state: { opened }
          } = this
+
+
 
     return (
       <div
         {...{ className: `accordion-item, ${opened && 'accordion-item--opened'}`,
-
       }} >
-        <div {...{ className: 'accordion-item__line', onClick: () => { this.setState({ opened: !opened }) } }}>
-            <h3 {...{ className: 'accordion-item__title' }}>
-              {this.props.title}
+        <div {...{ className: 'accordion-item__line' }}>
+            <h3 {...{ className: 'accordion-item__title', onClick: () => { this.setState({ opened: !opened }) } }}>
+              {this.props.lab_title}
             </h3>
-            <h4 {...{ className: 'accordion-item__ref' }} onDoubleClick={this.toggleEditable}>
-            <RefContent html={this.state.refHtml} editing={this.state.editing} onChange={this.handleRefEdit} /></h4>
+            <h4 {...{ className: 'accordion-item__ref' }} onDoubleClick={this.toggleRefEdit}>
+            {this.refView()}
+            </h4>
             <span {...{ className: 'accordion-item__icon' }}/>
         </div>
         <div >
             <div {...{ className: 'accordion-item__inner' }}>
               <div {...{ className: 'accordion-item__content' }}>
-                  <p {...{ className: 'accordion-item__body' }} >
-                    <NoteContent html={this.state.bodyHtml} editing={this.state.editing} onChange={this.handleBodyEdit} />
-                  </p>
-                  <button id="edit-btn" onClick={this.toggleEditable}>Edit</button>
-                  <button id="delete-btn" onClick={this.handleDelete}>Delete</button>
+                  <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
+                   {this.bodyView()}
+                  </div>
+                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleBodyEdit} >
+                  <EditIcon />
+                  </Fab>
+                  <h4 {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</h4>
               </div>
             </div>
         </div>
@@ -66,6 +142,10 @@ export default class Note extends React.Component {
 
 }
 
+
+// <button id={id} onClick={this.handleDelete}>Delete</button>
+// <NoteContent html={this.state.bodyHtml} editing={this.state.editing} onChange={this.handleBodyEdit} />
+// <RefContent html={this.state.refHtml} editing={this.state.editing} onChange={this.handleRefEdit} />
 // {classnames({
 //   [style.editing]: this.state.editing,
 //   [style.normal]: !this.state.editing

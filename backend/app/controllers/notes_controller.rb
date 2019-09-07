@@ -1,6 +1,9 @@
 class NotesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
   def index
     @notes = Note.all
+    # @mynotes = Note.all.filter{|note| note.user_id == current_user.id}
   end
 
   def new
@@ -25,7 +28,7 @@ class NotesController < ApplicationController
   def update
     @note.update(note_params)
     if @note.save
-      redirect_to @note
+      redirect_to @notes
     else
       render :edit
     end
@@ -33,7 +36,8 @@ class NotesController < ApplicationController
 
   def destroy
     @note.delete
-    redirect_to :root_path
+    @notes = Note.all
+    render json: { notes: @notes, error: @note.errors.full_messages, message: "Note deleted" }
   end
 
   private
