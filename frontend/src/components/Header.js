@@ -20,11 +20,14 @@ const useStyles = makeStyles(theme => ({
     padding: '3px 3px 3px',
     display: 'flex',
     alignItems: 'center',
-    width: '50%',
-    marginLeft: theme.spacing(2),
+    width: '40%',
+    backgroundColor: '#f8f2ec',
+    opacity: '0.8',
+    marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   input: {
+    fontStyle: 'italic',
     marginLeft: theme.spacing(1),
     flex: 1,
   },
@@ -35,13 +38,18 @@ const useStyles = makeStyles(theme => ({
     height: 28,
     margin: 4,
   },
-  button: {
+  btnGrid: {
     float: 'right',
-    marginLeft: theme.spacing(8),
+    marginLeft: theme.spacing(13),
+    marginRight: theme.spacing(0),
     display: 'block',
     // position: 'relative',
     marginBottom: theme.spacing(0),
-    paddingBottom: 5
+    padding: '1px 1px 1px 1px'
+  },
+  button: {
+    backgroundColor: '#f8f2ec',
+    opacity: '0.4',
   }
 }));
 
@@ -68,7 +76,7 @@ export default function Header(props) {
     if(props.showSearchBar) {
     return(
       <div>
-      <Grid container className={classes.container} spacing={4} className={classes.container}>
+      <Grid container className={classes.container} spacing={4} >
       <Grid item xs={9}>
       <Paper id="search-bar" className={classes.root}>
         <InputBase
@@ -88,8 +96,8 @@ export default function Header(props) {
         </IconButton>
       </Paper>
       </Grid>
-      <Grid item xs={2} className={classes.button}>
-      <Button variant="contained" size='small' onClick={props.onSignOut}>
+      <Grid item xs={2} className={classes.btnGrid}>
+      <Button className={classes.button} variant="contained" size='small' onClick={props.onSignOut}>
         Log Out</Button>
       </Grid>
       </Grid>

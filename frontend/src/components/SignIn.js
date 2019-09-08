@@ -63,10 +63,6 @@ export default function SignIn(props) {
     password: ""
   });
 
-  const handleSignIn = (e) => {
-  console.log(e)
-    // props.handleSignIn(e)
-  };
 
   const handleChange = name => (e) => {
     setValues({...values, [name]: e.target.value })
@@ -79,9 +75,9 @@ export default function SignIn(props) {
     props.handleSignIn(e)
   };
 
-  const linkClick = () => {
-    console.log("Retrieve PW")
-  };
+  // const linkClick = () => {
+  //   console.log("Retrieve PW")
+  // };
 
   return (
     <Grid container component='main' className={classes.root}>

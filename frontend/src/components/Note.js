@@ -4,11 +4,11 @@ import NoteContent from './NoteContent';
 import RefContent from './RefContent';
 import NoteTextInput from './NoteTextInput'
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
+import { Grid, Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit'
 import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
 import _ from 'lodash'
-// import style from '../Note.css'
+import style from '../Note.css'
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -95,9 +95,9 @@ export default class Note extends React.Component {
   setEditPrompt = () => {
     console.log("prompt fired")
     if(this.state.editing) {
-      return(<p color='blue'>Editing - Reclick to save changes</p>)
+      return(<p className='edit-prompt'>...Editing - Click to save</p>)
     } else {
-      return(<p color='blue'>Click to edit</p>)
+      return(<p className='edit-prompt'>Click to edit</p>)
     }
   }
 
@@ -130,10 +130,16 @@ export default class Note extends React.Component {
                   <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
                    {this.bodyView()}
                   </div>
+                  <Grid container>
+                  <Grid>
                   <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleEdit} >
                   <EditIcon />
                   </Fab>
+                  </Grid>
+                  <Grid>
                   <div className='p' {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</div>
+                  </Grid>
+                  </Grid>
               </div>
             </div>
         </div>

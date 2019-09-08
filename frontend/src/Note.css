@@ -82,8 +82,13 @@
   display: none;
 }
 
-.p{
-  color: blue;
+.edit-prompt{
+  font-size: 15px;
+  font-family: Courier, serif;
+  font-style: italic;
+  color: rgb(135, 15, 15);
+  /* opacity: 0.6; */
+  padding-left: 0.5rem;
 }
 
 /*

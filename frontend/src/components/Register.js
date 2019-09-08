@@ -78,19 +78,12 @@ export default function Register(props) {
     setValues({...values, [name]: e.target.value })
   };
 
-  const createUser = (e) => {
-    e.preventDefault();
-    e.persist();
-    // console.log("form" + e)
-    props.handleSignIn(e)
-  };
-
   // const showMessage = () => {
   //   return props.message
   // }
 
   return (
-    <Container component="body" maxWidth="xs">
+    <Container component="body" maxWidth="sm">
       <CssBaseline />
 
       <div className={classes.paper}>

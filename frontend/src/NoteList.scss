@@ -8,7 +8,7 @@ $cLightGray: rgba(#000, 0.1);
     // border-color: black;
 }
 
-h1{
+h2{
   font-style: italic;
   text-decoration: underline;
 }
@@ -67,10 +67,10 @@ h1{
   &__line{
     display: block;
     width: 50rem;
-    padding: 0rem 8rem;
+    padding: 0rem 7rem;
     // display: flex;
-    justify-content: space-between;
-    align-items: center;
+    // justify-content: space-between;
+    // align-items: center;
     // background-color: #282c34;
     z-index: 2;
     // position: relative;
@@ -99,6 +99,8 @@ h1{
   }
 
   &__inner{
+
+    width: 100%;
     background-color: #fffeed;
 background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
@@ -120,22 +122,18 @@ background-image: url("https://www.transparenttextures.com/patterns/notebook-dar
   }
 
   &__content{
-
+    width: 100%;
     opacity: 0;
     transform: translateY(-1rem);
     transition-timing-function: linear, ease;
     transition-duration: 0.1s;
     transition-property: opacity, transform;
     transition-delay: 0.5s;
-    padding: 0 1.2rem 1.2rem;
-  }
-
-  &__prompt{
-    font-size: 3rem;
-    color: red;
+    padding: 0 1.2rem 0;
   }
 
   &__body{
+    text-align: center;
     margin: 0;
     font-size: 1.5rem;
     color: rgba(30,87,153,1);

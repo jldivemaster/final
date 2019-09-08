@@ -1,8 +1,11 @@
 import React from 'react'
 import '../UserProfile.css'
-import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
+import { RIEInput, RIETextArea } from 'riek'
 import _ from 'lodash'
 import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -17,6 +20,13 @@ export default class UserProfile extends React.Component {
     mod: this.props.user.current_mod
    }
  };
+
+ // const classes = {
+ //   profileBtn: {
+ //     opacity: '0.5'
+ //   }
+ // };
+
 
  // const [values, setValues] = React.useState({
  //   username: props.user.username,
@@ -43,7 +53,6 @@ export default class UserProfile extends React.Component {
  //  }
 
  handleChange = name => (e) => {
-   // console.log(name, e[name])
     this.setState({ [name]: e[name] })
  }
 
@@ -71,7 +80,7 @@ export default class UserProfile extends React.Component {
     if (this.state.editing) {
       return (
         <div id="profile">
-          <h1>User Profile</h1>
+          <h2>User Profile</h2>
           <div className="profile-list">
             <ul id="firstname"> First Name:
               <RIEInput name='firstname' value={this.setValue(this.state.firstname)} change={this.handleChange('firstname')} propName='firstname' validate={_.isString} />
@@ -91,14 +100,14 @@ export default class UserProfile extends React.Component {
             <ul id="mod"> Mod #
               <RIEInput name='mod' value={this.setValue(this.state.mod)} change={this.handleChange('mod')} propName='mod' validate={_.isString} />
             </ul>
-            <button onClick={this.handleUserEdit}>Save Edit</button>
+            <Button variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
           </div>
         </div>
       )
     } else {
     return (
       <div id="profile">
-        <h1>User Profile</h1>
+        <h2>User Profile</h2>
         <div className="profile-list">
           <ul>Name: {this.state.firstname + " " + this.state.lastname}</ul>
           <ul>User Name: {this.state.username}</ul>
