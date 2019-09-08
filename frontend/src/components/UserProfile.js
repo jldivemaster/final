@@ -2,6 +2,7 @@ import React from 'react'
 import '../UserProfile.css'
 import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
 import _ from 'lodash'
+import { Button } from '@material-ui/core';
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -104,7 +105,7 @@ export default class UserProfile extends React.Component {
           <ul>Location: {this.state.location}</ul>
           <ul>Program: {this.state.program}</ul>
           <ul>Mod: {this.state.mod}</ul>
-          <button onClick={this.handleClick}>Edit Profile</button>
+          <Button variant="contained" onClick={this.handleClick}>Edit Profile</Button>
         </div>
       </div>
     )}

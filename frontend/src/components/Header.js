@@ -101,7 +101,7 @@ export default function Header(props) {
   return (
     <div className="header" style ={ { backgroundImage: "url("+bg+")" } }>
          <p className='credit'>Photo by Aaron Burden on Unsplash</p>
-        <h2 className='head-title'>NoteCatcher</h2>
+        <h1 className='head-title'>NoteCatcher</h1>
         <h5 className='head-subtitle'>A note organizer for Flatiron Students</h5>
         {showSearchBar()}
 

@@ -82,6 +82,9 @@
   display: none;
 }
 
+.p{
+  color: blue;
+}
 
 /*
   Hack to remove background from Mobile Safari.

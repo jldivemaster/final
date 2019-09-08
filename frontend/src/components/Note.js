@@ -21,32 +21,32 @@ export default class Note extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = { opened: false,
-              editingRef: false,
-              editingBody: false,
+              // editingRef: false,
+              editing: false,
               message: this.props.message,
               body: this.props.body,
               ref: this.props.quick_ref }
   }
 
-  handleBodyEdit = (e) => {
+  handleEdit = (e) => {
     console.log('editing' + e)
-    this.setState({ body: e.target.value})
+    // this.setState({ body: e.target.value})
   };
 
-  handleRefEdit = (e) => {
-    console.log('editing' + e)
-    this.setState({ ref: e.target.value})
-  };
+  // handleRefEdit = (e) => {
+  //   console.log('editing' + e)
+  //   this.setState({ ref: e.target.value})
+  // };
 
-  toggleRefEdit = () => {
-    this.setState({
-      editingRef: !this.state.editingRef
-    })
-  }
+  // toggleRefEdit = () => {
+  //   this.setState({
+  //     editingRef: !this.state.editingRef
+  //   })
+  // }
 
-  toggleBodyEdit = () => {
+  toggleEdit = () => {
     this.setState({
-      editingBody: !this.state.editingBody
+      editing: !this.state.editing
     })
   }
 
@@ -73,7 +73,7 @@ export default class Note extends React.Component {
   }
 
   refView = () => {
-    if(this.state.editingBody) {
+    if(this.state.editing) {
       return(
         <NoteTextInput name="ref" value={this.state.ref} handleChange={this.handleChange('ref')} />
       )} else {
@@ -83,7 +83,7 @@ export default class Note extends React.Component {
   }
 
   bodyView = () => {
-    if(this.state.editingBody) {
+    if(this.state.editing) {
       return(
         <NoteTextInput name="body" value={this.state.body} handleChange={this.handleChange('body')} />
       )} else {
@@ -94,10 +94,10 @@ export default class Note extends React.Component {
 
   setEditPrompt = () => {
     console.log("prompt fired")
-    if(this.state.editingBody) {
-      return('Editing - Reclick to save changes')
+    if(this.state.editing) {
+      return(<p color='blue'>Editing - Reclick to save changes</p>)
     } else {
-      return('Click to edit')
+      return(<p color='blue'>Click to edit</p>)
     }
   }
 
@@ -130,10 +130,10 @@ export default class Note extends React.Component {
                   <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
                    {this.bodyView()}
                   </div>
-                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleBodyEdit} >
+                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleEdit} >
                   <EditIcon />
                   </Fab>
-                  <h4 {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</h4>
+                  <div className='p' {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</div>
               </div>
             </div>
         </div>
