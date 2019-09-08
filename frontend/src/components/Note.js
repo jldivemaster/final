@@ -4,11 +4,11 @@ import NoteContent from './NoteContent';
 import RefContent from './RefContent';
 import NoteTextInput from './NoteTextInput'
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
+import { Grid, Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit'
 import { RIEToggle, RIEInput, RIETextArea, RIETags, RIESelect } from 'riek'
 import _ from 'lodash'
-// import style from '../Note.css'
+import style from '../Note.css'
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -21,32 +21,32 @@ export default class Note extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = { opened: false,
-              editingRef: false,
-              editingBody: false,
+              // editingRef: false,
+              editing: false,
               message: this.props.message,
               body: this.props.body,
               ref: this.props.quick_ref }
   }
 
-  handleBodyEdit = (e) => {
+  handleEdit = (e) => {
     console.log('editing' + e)
-    this.setState({ body: e.target.value})
+    // this.setState({ body: e.target.value})
   };
 
-  handleRefEdit = (e) => {
-    console.log('editing' + e)
-    this.setState({ ref: e.target.value})
-  };
+  // handleRefEdit = (e) => {
+  //   console.log('editing' + e)
+  //   this.setState({ ref: e.target.value})
+  // };
 
-  toggleRefEdit = () => {
-    this.setState({
-      editingRef: !this.state.editingRef
-    })
-  }
+  // toggleRefEdit = () => {
+  //   this.setState({
+  //     editingRef: !this.state.editingRef
+  //   })
+  // }
 
-  toggleBodyEdit = () => {
+  toggleEdit = () => {
     this.setState({
-      editingBody: !this.state.editingBody
+      editing: !this.state.editing
     })
   }
 
@@ -73,7 +73,7 @@ export default class Note extends React.Component {
   }
 
   refView = () => {
-    if(this.state.editingBody) {
+    if(this.state.editing) {
       return(
         <NoteTextInput name="ref" value={this.state.ref} handleChange={this.handleChange('ref')} />
       )} else {
@@ -83,7 +83,7 @@ export default class Note extends React.Component {
   }
 
   bodyView = () => {
-    if(this.state.editingBody) {
+    if(this.state.editing) {
       return(
         <NoteTextInput name="body" value={this.state.body} handleChange={this.handleChange('body')} />
       )} else {
@@ -94,10 +94,10 @@ export default class Note extends React.Component {
 
   setEditPrompt = () => {
     console.log("prompt fired")
-    if(this.state.editingBody) {
-      return('Editing - Reclick to save changes')
+    if(this.state.editing) {
+      return(<p className='edit-prompt'>...Editing - Click to save</p>)
     } else {
-      return('Click to edit')
+      return(<p className='edit-prompt'>Click to edit</p>)
     }
   }
 
@@ -130,10 +130,16 @@ export default class Note extends React.Component {
                   <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
                    {this.bodyView()}
                   </div>
-                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleBodyEdit} >
+                  <Grid container>
+                  <Grid>
+                  <Fab color="primary" aria-label="add" className='accordion-item__edit-btn' size='small' onClick={this.toggleEdit} >
                   <EditIcon />
                   </Fab>
-                  <h4 {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</h4>
+                  </Grid>
+                  <Grid>
+                  <div className='p' {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</div>
+                  </Grid>
+                  </Grid>
               </div>
             </div>
         </div>

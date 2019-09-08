@@ -1,5 +1,5 @@
 .header{
-  min-height: 37vh;
+  min-height: 35vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,7 +7,14 @@
 }
 
 .head-title{
+  margin-top: 25px;
   font-style: italic;
+  font-size: 75px;
+  color: #f8f2ec;
+
+  text-shadow: 3.5px 3.5px #000000;
+/* text-decoration: url("https://www.transparenttextures.com/patterns/mocha-grunge.png"); */
+
 }
 
 .head-subtitle{

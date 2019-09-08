@@ -9,37 +9,40 @@ import { List, ListItem, Divider } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1),
+    opacity: '0.4'
   }
 }));
 
-export default class NoteList extends React.Component {
+export default function NoteList(props) {
 
-  setModNum = () => {
-    if(this.props.mod === '0'){
+  const classes = useStyles();
+
+  const setModNum = () => {
+    if(props.mod === '0'){
       return 'Pre-Work'
     } else {
-      return 'Mod ' + this.props.mod
+      return 'Mod ' + props.mod
     }
   };
 
-  handleNoteDelete = (e) => {
-    this.props.handleNoteDelete(e.target.id)
+  const handleNoteDelete = (e) => {
+    props.handleNoteDelete(e.target.id)
     alert("Note successfully deleted")
   }
 
 
-  render() {
-    const modNum = this.setModNum();
+
+    // const modNum = this.setModNum();
     return(
       <div {...{ className: "wrapper" }}>
-      <h1>{modNum}</h1>
+      <h2>{setModNum}</h2>
         <List {...{ className: "accordian-list" }} alignItems="flex-start">
-          {this.props.notes.map((note, key) => {
+          {props.notes.map((note, key) => {
             return (
               <ul {...{ className: "accordian-list__item", key }}>
               <ListItem >
-                <Note {...note} handleNoteDelete={this.handleNoteDelete} />
-                <Fab aria-label="delete" className='accordion-item__delete-btn' size='small' id={note.id} onClick={this.handleNoteDelete} >
+                <Note {...note} handleNoteDelete={handleNoteDelete} />
+                <Fab aria-label="delete" className={classes.fab} size='small' id={note.id} onClick={handleNoteDelete} >
                 <DeleteIcon className='delete-btn' label='Delete' />
                 </Fab>
               </ListItem>
@@ -51,7 +54,7 @@ export default class NoteList extends React.Component {
         </List>
       </div>
     )
-  }
+
 }
 
 // href="#card-element-189612"

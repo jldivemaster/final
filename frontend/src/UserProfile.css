@@ -1,6 +1,6 @@
 #profile {
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: calc(15px + 2vmin);
+  /* color: white; */
 }
 
 .profile-list {
@@ -9,4 +9,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+h1{
+  font-style: italic;
+}
+
+profile-btn{
+  opacity: 0.5;
 }

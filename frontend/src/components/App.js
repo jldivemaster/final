@@ -6,8 +6,8 @@ import UserProfile from './UserProfile'
 import NoteList from './NoteList'
 import SignInContainer from './SignInContainer'
 import SearchResults from './SearchResults'
-import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
-import _ from 'lodash'
+// import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
+// import _ from 'lodash'
 
 
 // ***  Set Proper server URLS ==============
@@ -92,13 +92,23 @@ class App extends React.Component {
   };
 
   handleSignOut = () => {
-    this.setState({
-        signedIn: false,
-        signInView: "Sign Out",
-        searching: false,
-        user: {},
-        notes: [],
-        filteredNotes: []
+    const configObj = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+              }
+    }
+
+    fetch(logout_url, configObj).then(res => res.json()).then(data => {
+        this.setState({
+            signedIn: false,
+            signInView: "Sign Out",
+            searching: false,
+            user: {},
+            notes: [],
+            filteredNotes: []
+        })
     })
   };
 
@@ -150,20 +160,20 @@ class App extends React.Component {
 // };
 
 handleUserEdit = (e) => {
-  // console.log(e.target.parentNode.children[0].lastChild.innerText)
-  // let name = e.target.parentNode.children[0].children[0].innerText
-  // let username = e.target.parentNode.children[1].children[0].innerText
-  // let location = e.target.parentNode.children[2].children[0].innerText
-  // let program = e.target.parentNode.children[3].children[0].innerText
-  // let mod = e.target.parentNode.children[4].children[0].innerText
-  // let first_name = name.split(" ")[0]
-  // let last_name = name.split(" ")[1]
-  let firstname = e.target.parentNode.children[0].lastChild.innerText
-  let lastname = e.target.parentNode.children[1].lastChild.innerText
-  let username = e.target.parentNode.children[2].lastChild.innerText
-  let location = e.target.parentNode.children[3].lastChild.innerText
-  let program = e.target.parentNode.children[4].lastChild.innerText
-  let mod = e.target.parentNode.children[5].lastChild.innerText
+  // console.log(e.target.parentNode.parentNode)
+  // let name = e.target.parentNode.parentNode.children[0].children[0].innerText
+  // let username = e.target.parentNode.parentNode.children[1].children[0].innerText
+  // let location = e.target.parentNode.parentNode.children[2].children[0].innerText
+  // let program = e.target.parentNode.parentNode.children[3].children[0].innerText
+  // let mod = e.target.parentNode.parentNode.children[4].children[0].innerText
+  // let firstname = name.split(" ")[0]
+  // let lastname = name.split(" ")[1]
+  let firstname = e.target.parentNode.parentNode.children[0].lastChild.innerText
+  let lastname = e.target.parentNode.parentNode.children[1].lastChild.innerText
+  let username = e.target.parentNode.parentNode.children[2].lastChild.innerText
+  let location = e.target.parentNode.parentNode.children[3].lastChild.innerText
+  let program = e.target.parentNode.parentNode.children[4].lastChild.innerText
+  let mod = e.target.parentNode.parentNode.children[5].lastChild.innerText
   // let mod = 5
   // console.log(firstname, lastname, username, location, program, mod)
   const dataObj = {
