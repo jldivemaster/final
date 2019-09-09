@@ -1,11 +1,11 @@
 .App {
-  text-align: center;
+  // text-align: center;
   height: 100%;
   //   background-color: #6a656e;
   // background-image: url("https://www.transparenttextures.com/patterns/grunge-wall.png");
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   background-color: #452900;
-background-image: url("https://www.transparenttextures.com/patterns/mocha-grunge.png");
+  background-image: url("https://www.transparenttextures.com/patterns/mocha-grunge.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! *//* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   // background-color: #1f1f1f;
@@ -60,10 +60,12 @@ background-image: url("https://www.transparenttextures.com/patterns/mocha-grunge
 }
 
 #main-title{
+  // text-align: center;
   // padding-top: 0;
 }
 
 .tabs{
+  text-align: center;
   // background-color: gray;
 }
 

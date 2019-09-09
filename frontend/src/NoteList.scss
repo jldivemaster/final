@@ -9,6 +9,7 @@ $cLightGray: rgba(#000, 0.1);
 }
 
 h2{
+  text-align: center;
   font-style: italic;
   text-decoration: underline;
 }
@@ -21,7 +22,6 @@ h2{
   padding: 0;
   background-color: #fff;
   max-width: 25rem;
-
   border-radius: 0.4rem;
   overflow: hidden;
   box-shadow:
@@ -33,6 +33,12 @@ h2{
       border-top: 1px solid $cLightGray;
     }
   }
+}
+
+.acc-item{
+  border-style: double;
+  border-color: black;
+  width: 1200px;
 }
 
 .accordion-item{
@@ -49,17 +55,16 @@ h2{
 
       max-height: 200rem;
       transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
-      transition-duration: 0.5s;
+      transition-duration: 0.8s;
       transition-property: max-height;
     }
 
     #{ $self }__content{
-
       opacity: 1;
       transform: translateY(0);
-      transition-delay: 0.2s;
+      transition-delay: 0.3s;
       transition-timing-function: ease-in-out;
-      transition-duration: 0.2s;
+      transition-duration: 0.5s;
       transition-property: opacity, transform;
     }
   }
@@ -95,14 +100,12 @@ h2{
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAABGklEQVR4Ae3RAcZCQRiF4buDfwshBGi+2UQgcIGAVtpSIuS/KyilG+UTcbk6zIH3GQBm3mM6AAAAAAAAAACA+eqf/yZBXcV/2XeCVPYx1FXj/FjGUMd45AQp/1HHGGLZNL+e61jHnKDmv8652YT1IvPfE2LX/Sh27/ycsF60yT/lk58JYn6eU4MJccjnlAmZ/33i0OAH4jg9Qcw/5g9YJpS+m6n0xvzpCfVe+nn59S7kGyYo+YYJWz3fO+E2PaFs9XzPhMy/6fmWCXq+YUJs9HzrhLh+JsQmrnq+bYKeb52g53snXPR88wQ93z9Bz/dP0PP9E/R89wQ93zpBz7dO0POtE/R86wQ93zpBzzdP+MoHAAAAAAAAAADAExTnTW20AtjhAAAAAElFTkSuQmCC);
-    opacity: 0.6;
+    // opacity: 0.6;
   }
 
   &__inner{
-
-    width: 100%;
     background-color: #fffeed;
-background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
+    background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   //   background-color: #2e2e2a;
   // background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
@@ -110,29 +113,37 @@ background-image: url("https://www.transparenttextures.com/patterns/notebook-dar
 // background-color: #fff7d1;
     // background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
 /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-    max-width: 75%;
+    max-width: 100%;
     max-height: 0;
-    padding: 0rem 5rem;
+    padding: 0 0 0 0;
+    margin: 1rem;
+    // justify-content: center;
+    // margin-left: 0;
+    // margin-right: 0;
     overflow: hidden;
     text-transform: cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition-duration: 0.5s;
+    transition-duration: 0.8s;
     transition-property: max-height;
     z-index: 1;
     // position: relative;
   }
 
   &__content{
-    width: 100%;
+    // border-style: double;
+    // border-color: black;
+    max-width: 97%;
     opacity: 0;
     transform: translateY(-1rem);
     transition-timing-function: linear, ease;
     transition-duration: 0.1s;
     transition-property: opacity, transform;
     transition-delay: 0.5s;
-    padding: 0 1.2rem 0;
+    padding: 0rem;
+    margin: 0.7rem;
   }
 
   &__body{
+
     text-align: center;
     margin: 0;
     font-size: 1.5rem;
@@ -147,7 +158,7 @@ background-image: url("https://www.transparenttextures.com/patterns/notebook-dar
   }
 
   &__delete-btn{
-    position: absolute;
+    position: fixed;
     align-self: right;
   }
 }

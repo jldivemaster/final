@@ -28,9 +28,9 @@ class NotesController < ApplicationController
   def update
     @note.update(note_params)
     if @note.save
-      redirect_to @notes
+      render json: { note: @note, message: 'Note successfully updated.' }
     else
-      render :edit
+      render json: { note: @note, error: @note.errors.full_messages }
     end
   end
 

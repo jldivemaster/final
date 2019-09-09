@@ -5,16 +5,31 @@
 
 .profile-list {
   max-width: 100vh;
-  display: flex;
+  display: static;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* text-align: left; */
 }
 
 h1{
   font-style: italic;
 }
 
-profile-btn{
-  opacity: 0.5;
+.profile-btn{
+  opacity: 0.55;
+}
+
+.input{
+  text-align: center;
+  align-self: left;
+  font-size: calc(12px + 2vmin);
+  display: inline;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-color: black;
+  opacity: 0.6;
+  padding: 5px;
+  background: none;
+  outline: none;
+  resize: horizontal;
 }

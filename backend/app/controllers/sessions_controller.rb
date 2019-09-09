@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :username
     render json: {
-      status: deleted,
+      status: 'deleted',
       logged_in: false
       }
   end

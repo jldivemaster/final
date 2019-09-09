@@ -35,13 +35,13 @@ export default function NoteList(props) {
     // const modNum = this.setModNum();
     return(
       <div {...{ className: "wrapper" }}>
-      <h2>{setModNum}</h2>
-        <List {...{ className: "accordian-list" }} alignItems="flex-start">
+      <h2>{setModNum()}</h2>
+        <List {...{ className: "accordian-list" }} >
           {props.notes.map((note, key) => {
             return (
               <ul {...{ className: "accordian-list__item", key }}>
               <ListItem >
-                <Note {...note} handleNoteDelete={handleNoteDelete} />
+                <Note note={note} handleNoteDelete={handleNoteDelete} handleNoteEdit={props.handleNoteEdit} />
                 <Fab aria-label="delete" className={classes.fab} size='small' id={note.id} onClick={handleNoteDelete} >
                 <DeleteIcon className='delete-btn' label='Delete' />
                 </Fab>

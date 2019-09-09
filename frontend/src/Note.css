@@ -1,6 +1,6 @@
 .normal .toggle {
   text-align: center;
-  width: 60px;
+  /* max-width: 1400px; */
   /* auto, since non-WebKit browsers doesn't support input styling */
   height: inherit;
   position: absolute;
@@ -73,9 +73,10 @@
 
 .editing .edit {
   display: block;
-  width: 506px;
+  max-width: 1400px;
+
   padding: 13px 17px 12px 17px;
-  margin: 0 0 0 43px;
+  margin: 0 0 0 0;
 }
 
 .editing .view {
@@ -87,7 +88,7 @@
   font-family: Courier, serif;
   font-style: italic;
   color: rgb(135, 15, 15);
-  /* opacity: 0.6; */
+  opacity: 0.7;
   padding-left: 0.5rem;
 }
 
@@ -103,4 +104,40 @@
   .normal .toggle {
     height: 60px;
   }
+}
+
+.ref-input{
+  width: 600px;
+  align-self: left;
+  font-size: calc(12px + 2vmin);
+  display: inline;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-color: blue;
+  opacity: 0.6;
+  padding: 5px;
+  background: none;
+  outline: none;
+  resize: horizontal;
+}
+
+.body-input{
+
+  width: 97%;
+  max-width: 97%;
+  text-align: center;
+  /* align-self: center; */
+  font-size: calc(12px + 2vmin);
+  display: inline;
+  /* border-left: none;
+  border-right: none;
+  border-top: none; */
+  border-color: blue;
+  opacity: 0.6;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background: none;
+  outline: none;
+  min-height: 2em;
 }

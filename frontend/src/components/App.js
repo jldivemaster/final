@@ -6,11 +6,8 @@ import UserProfile from './UserProfile'
 import NoteList from './NoteList'
 import SignInContainer from './SignInContainer'
 import SearchResults from './SearchResults'
-// import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
-// import _ from 'lodash'
 
-
-// ***  Set Proper server URLS ==============
+// ***  Server URLS ==============
 const users_url = 'http://localhost:3000/users'
 const notes_url = 'http://localhost:3000/notes'
 const login_url = 'http://localhost:3000/login'
@@ -28,8 +25,7 @@ class App extends React.Component {
       user: {},
       notes: [],
       filteredNotes: [],
-      keyword: "",
-      // editingUser: false,
+      keyword: ""
     }
   };
 
@@ -73,7 +69,7 @@ class App extends React.Component {
     fetch(login_url, configObj).then(res => res.json())
       .then(data => {
         if(data.error) {
-          console.log(data)
+          // console.log(data)
           this.setState({ signInView: 'Sign In Fail', message: data.error })
         } else {
           this.setState({
@@ -269,14 +265,15 @@ handleUserEdit = (e) => {
         } })
     };
 
-    handleNoteEdit = (id) => {
-      let title;
-      let ref;
-      let body;
+    handleNoteEdit = (target) => {
+      // console.log(target)
+      let id = target.id
+      let ref = target.ref
+      let body = target.body
+      // console.log(id, ref, body)
       const dataObj = {
-        'lab_title': title,
         'quick_ref': ref,
-        'body': body,
+        'body': body
       }
       const configObj = {
         method: 'PATCH',
@@ -286,7 +283,21 @@ handleUserEdit = (e) => {
         },
         body: JSON.stringify(dataObj)
       }
-      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => (console.log(data)))
+      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
+        // console.log(data);
+        let newNotes = this.state.notes
+        let note = this.state.notes.find(function(ele) {
+          return ele.id === id
+        })
+        // console.log(note)
+        let index = newNotes.indexOf(note)
+        newNotes[index] = data.note
+        // console.log(newNotes)
+        this.setState({
+          notes: newNotes
+        })
+        // console.log(this.state.notes)
+      })
     };
 // **
 // ***
@@ -303,7 +314,6 @@ render() {
       if(this.state.signedIn && !this.state.searching) {
      return (
       <div>
-
             <Main className="main">
 
             <div className="profile-tab" label="My Profile">
@@ -312,19 +322,19 @@ render() {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
             </div>
               <div label="Mod 1">
-                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
               </div>
               <div label="Mod 2">
-                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
               </div>
               <div label="Mod 3">
-                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
               </div>
               <div label="Mod 4">
-                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
               </div>
             </Main>
       </div>

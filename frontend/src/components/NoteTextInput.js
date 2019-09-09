@@ -6,37 +6,34 @@ import PropTypes from 'prop-types';
 export default class NoteTextInput extends Component {
 
   static propTypes = {
-
-
     body: PropTypes.string,
     placeholder: PropTypes.string,
     editing: PropTypes.bool,
-    onSave: PropTypes.func.isRequired,
+    // onSave: PropTypes.func.isRequired,
     newNote: PropTypes.bool
-
   };
 
   constructor(props, context) {
     super(props, context);
     this.state = {
       body: this.props.value || ''
-    };
-  }
+    }
+  };
 
   handleChange = (evt) => {
-    console.log(evt.target)
+    console.log('change', evt.target)
     this.setState({ text: evt.target.value });
   };
 
   handleBlur = (evt) => {
-    console.log(evt.target)
+    console.log("blur", evt.target)
     // if (!this.props.newNote) {
     //   this.props.onSave(evt.target.value);
     // }
   };
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <p
         className={classnames({
@@ -51,6 +48,6 @@ export default class NoteTextInput extends Component {
         onBlur={this.handleBlur}
         onChange={this.props.handleChange}
       >{this.state.body}</p>
-    );
-  }
+    )
+  };
 }
