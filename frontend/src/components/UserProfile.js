@@ -64,11 +64,13 @@ export default class UserProfile extends React.Component {
             <ul id="mod"> Mod #
               <input type="text" size='2' className='input' name='mod' value={this.state.mod} onChange={this.handleChange('mod')} />
             </ul>
+            <Grid container className='btn-container'>
           <Grid>
             <Button className='edit-profile-btn' variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
             </Grid>
             <Grid>
             <Button className='profile-btn' variant="contained" onClick={this.handleClick}>Cancel Edit</Button>
+            </Grid>
             </Grid>
           </div>
           </div>

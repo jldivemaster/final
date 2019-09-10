@@ -12,11 +12,10 @@
 
 .edit-profile-list{
   border-style: double;
-  justify-content: center;
   margin-left: 2rem;
   padding-bottom: 2rem;
   max-width: 100vh;
-  display: static;
+  display: flex;
   flex-direction: column;
   /* text-align: left; */
 }
@@ -31,6 +30,14 @@ h1{
 
 .edit-profile-btn{
   opacity: 0.6;
+}
+
+.btn-container{
+  max-width: 80%;
+  padding-left: 10rem;
+  /* align-content: center; */
+  justify-content: space-around;
+  /* background-color: black; */
 }
 
 .input{
