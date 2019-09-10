@@ -1,37 +1,46 @@
 import React from 'react'
 import '../NoteList.scss'
 import Note from './Note'
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete'
+import { List, ListItem, Divider, Fab, Button, Grid } from '@material-ui/core';
 
-export default class SearchResults extends React.Component {
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(1),
+    opacity: '0.4'
+  }
+}));
 
-  // setModNum = () => {
-  //   if(this.props.mod === '0'){
-  //     return 'Pre-Work'
-  //   } else {
-  //     return 'Mod ' + this.props.mod
-  //   }
-  // };
+export default function SearchResults(props) {
 
+  const classes = useStyles();
 
-  render() {
-    // const modNum = this.setModNum();
+  const handleNoteDelete = (e) => {
+    props.handleNoteDelete(e.target.id)
+    alert("Note successfully deleted")
+  };
+
     return(
-
       <div {...{ className: "wrapper" }}>
         <h2>Search Results</h2>
-        <ul {...{ className: "accordian-list" }}>
-          {this.props.notes.map((note, key) => {
+        <List {...{ className: "accordian-list" }}>
+          {props.notes.map((note, key) => {
             return (
-              <li {...{ className: "accordian-list__item", key }}>
-                <Note {...note} handleNoteDelete={this.props.handleNoteDelete}/>
-              </li>
+              <ul {...{ className: "accordian-list__item", key }}>
+               <ListItem>
+                <Note note={note} handleNoteDelete={props.handleNoteDelete} handleNoteEdit={props.handleNoteEdit} />
+                <Fab aria-label="delete" className={classes.fab} size='small' id={note.id} onClick={handleNoteDelete} >
+                  <DeleteIcon className='delete-btn' label='Delete' />
+                </Fab>
+              </ListItem>
+              </ul>
             )
           })}
-        </ul>
-        <button onClick={this.props.returnHome}>Return to Home Page</button>
+        </List>
+        <div>
+        <Button variant='contained' className='return-btn' onClick={props.returnHome}>Return to Home Page</Button>
+        </div>
       </div>
     )
-  }
 }
-
-// <h1>{modNum}</h1>

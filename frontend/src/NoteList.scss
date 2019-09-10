@@ -4,8 +4,18 @@ $cGray: #333;
 $cLightGray: rgba(#000, 0.1);
 
 .wrapper{
+  padding-left: 1rem;
+  padding-bottom: 2rem;
     // border-style: double;
     // border-color: black;
+}
+
+.return-btn{
+  align-self: center;
+  opacity: 0.6;
+  display: inline-block;
+  margin: 2rem;
+  padding: 2rem;
 }
 
 h2{

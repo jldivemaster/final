@@ -31,7 +31,7 @@ export default class Note extends React.Component {
 
   toggleEdit = (e) => {
     if(this.state.editing){
-      console.log('save edit', e, this.state)
+      // console.log('save edit', e, this.state)
       this.props.handleNoteEdit(this.state)
     }
     this.setState({

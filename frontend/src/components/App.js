@@ -190,7 +190,7 @@ handleUserEdit = (e) => {
     };
 
     handleSearch = (keyword) => {
-      console.log(keyword)
+      // console.log(keyword)
       if(keyword === "") {
         return (<h2>Not a valid search. Please try again.</h2>)
       } else {
@@ -329,7 +329,7 @@ render() {
             </Main>
       </div>
     )} else if (this.state.signedIn && this.state.searching) {
-      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} />)
+      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />)
     } else {
       return (
         <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
