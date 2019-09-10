@@ -8,30 +8,22 @@ export default class Note extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = { opened: false,
-              // editingRef: false,
-              editing: false,
-              id: this.props.note.id,
-              body: this.props.note.body,
-              ref: this.props.note.quick_ref }
+                  editing: false,
+                      id: this.props.note.id,
+                    body: this.props.note.body,
+                      ref: this.props.note.quick_ref }
   };
 
   openClose = () => {
     if(this.state.opened){
       this.setState({ editing: false })
     }
-    this.setState({ opened: !this.state.opened })
-
-  };
-
-  handleEdit = (e) => {
-    console.log('editing' + e)
-    // this.setState({ body: e.target.value})
+      this.setState({ opened: !this.state.opened })
   };
 
 
   toggleEdit = (e) => {
     if(this.state.editing){
-      // console.log('save edit', e, this.state)
       this.props.handleNoteEdit(this.state)
     }
     this.setState({
@@ -40,7 +32,6 @@ export default class Note extends React.Component {
   };
 
   handleChange = name => (e) => {
-    // console.log(e.target)
      this.setState({ [name]: e.target.value })
      this.autoExpand(e)
   };
@@ -48,7 +39,6 @@ export default class Note extends React.Component {
 
   handleDelete = (e) => {
     e.persist();
-    // console.log(e.target.id)
     let id = e.target.id.split("-")[1]
     this.props.handleNoteDelete(id)
   };
@@ -63,35 +53,29 @@ export default class Note extends React.Component {
 
   refView = () => {
     if(this.state.editing) {
-      return(
-        <input type="text" className='ref-input' name="ref" value={this.state.ref} onChange={this.handleChange('ref')} />
-      )} else {
-        return(
-          this.setValue(this.state.ref)
-        )}
+      return(<input type="text" className='ref-input' name="ref" value={this.state.ref} onChange={this.handleChange('ref')} />)
+    } else {
+        return(this.setValue(this.state.ref))
+    }
   };
 
   bodyView = () => {
     if(this.state.editing) {
-      return(
-        <textarea cols='40' className='body-input' name="body" value={this.state.body} onChange={this.handleChange('body')}>{this.state.body}</textarea>
-      )} else {
-        return(
-          this.setValue(this.state.body)
-        )}
+        return(<textarea cols='40' className='body-input' name="body" value={this.state.body} onChange={this.handleChange('body')}>{this.state.body}</textarea>)
+    } else {
+        return(<p>{this.setValue(this.state.body)}</p>)
+    }
   };
 
   setEditPrompt = () => {
-    // console.log("prompt fired")
     if(this.state.editing) {
-      return(<p className='edit-prompt'>...Editing - Click to save</p>)
+        return(<p className='edit-prompt'>...Editing - Click to save</p>)
     } else {
-      return(<p className='edit-prompt'>Click to edit</p>)
+        return(<p className='edit-prompt'>Click to edit</p>)
     }
   };
 
   autoExpand = (e) => {
-    // console.log(e.target)
     let field = e.target
     field.style.height = "inherit";
     let computed = window.getComputedStyle(field)

@@ -3,14 +3,14 @@ import '../NoteList.scss'
 import Note from './Note'
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete'
-import { List, ListItem, Divider, Fab, Button, Grid } from '@material-ui/core';
+import { List, ListItem, Fab, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1),
     opacity: '0.4'
-  }
-}));
+      }
+}) );
 
 export default function SearchResults(props) {
 

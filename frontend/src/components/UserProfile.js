@@ -14,24 +14,22 @@ export default class UserProfile extends React.Component {
     location: this.props.user.location,
     program: this.props.user.program,
     mod: this.props.user.current_mod
-   }
- };
+                }
+  };
 
  handleChange = name => (e) => {
-   // console.log('change', e.target.value)
     this.setState({ [name]: e.target.value })
- }
+ };
 
  handleClick = () => {
    this.setState({ editing: !this.state.editing })
  };
 
  handleUserEdit = (e) => {
-   // console.log(e.target.parentNode.parentNode.parentNode)
    e.persist();
    this.props.handleUserEdit(this.state)
    this.handleClick();
- }
+ };
 
  setValue = (value) => {
    if(value == null) {
@@ -39,7 +37,7 @@ export default class UserProfile extends React.Component {
    } else {
      return "  " + value
    }
- }
+ };
 
   profileView = () => {
     if (this.state.editing) {
@@ -64,19 +62,19 @@ export default class UserProfile extends React.Component {
             <ul id="mod"> Mod #
               <input type="text" size='2' className='input' name='mod' value={this.state.mod} onChange={this.handleChange('mod')} />
             </ul>
-            <Grid container className='btn-container'>
-          <Grid>
-            <Button className='edit-profile-btn' variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
-            </Grid>
-            <Grid>
-            <Button className='profile-btn' variant="contained" onClick={this.handleClick}>Cancel Edit</Button>
-            </Grid>
+            <Grid container className='user-btn-container'>
+              <Grid>
+                <Button className='edit-profile-btn' variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
+              </Grid>
+              <Grid>
+                <Button className='profile-btn' variant="contained" onClick={this.handleClick}>Cancel Edit</Button>
+              </Grid>
             </Grid>
           </div>
-          </div>
+        </div>
       )
     } else {
-    return (
+      return (
         <div className="profile-list">
           <ul>Name: <p>{this.state.firstname + " " + this.state.lastname}</p></ul>
           <ul>User Name: {this.state.username}</ul>
@@ -88,14 +86,13 @@ export default class UserProfile extends React.Component {
     )}
   };
 
-    render() {
-      return(
-        <div id="profile">
-          <h2>User Profile</h2>
-          {this.profileView()}
-        </div>
-      )
-  }
+  render() {
+    return(
+      <div id="profile">
+        <h2>User Profile</h2>
+        {this.profileView()}
+      </div>
+  )};
 }
 
 // <h4 contentEditable onChange={this.handleChange('fullname')}>{this.state.fullName}</h4>

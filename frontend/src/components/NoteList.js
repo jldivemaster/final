@@ -10,14 +10,14 @@ const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1),
     opacity: '0.4'
-  }
-}));
+     }
+}) );
 
 export default function NoteList(props) {
 
   const [values, setValues] = React.useState({
     newNote: false
-  })
+  });
 
   const classes = useStyles();
 
@@ -32,11 +32,11 @@ export default function NoteList(props) {
   const handleNoteDelete = (e) => {
     props.handleNoteDelete(e.target.id)
     alert("Note successfully deleted")
-  }
+  };
 
   const toggleView = () => {
     setValues({...values, newNote: !values.newNote })
-  }
+  };
 
   const newNoteView = () => {
     if(values.newNote){
@@ -48,8 +48,6 @@ export default function NoteList(props) {
     )}
   };
 
-
-    // const modNum = this.setModNum();
     return(
       <div {...{ className: "wrapper" }}>
       <h2>{setModNum()}</h2>
@@ -71,11 +69,4 @@ export default function NoteList(props) {
         </List>
       </div>
     )
-
 }
-
-// href="#card-element-189612"
-
-// {this.props.items.map(item => (
-//   <li key={item.id}>{item.text}</li>
-// ))}

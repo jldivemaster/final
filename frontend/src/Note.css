@@ -1,7 +1,5 @@
 .normal .toggle {
   text-align: center;
-  /* max-width: 1400px; */
-  /* auto, since non-WebKit browsers doesn't support input styling */
   height: inherit;
   position: absolute;
   top: 0;
@@ -107,33 +105,23 @@
 }
 
 .new-note{
+  width: 1200px;
   background-color: #fffeed;
   background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  /* //   background-color: #2e2e2a;
-  // background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  /* // background-color: #fff7d1;
-  // background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  max-width: 80%;
+  max-width: 95%;
   max-height: 180rem;
   padding: 0 0 0 0;
   margin: 1rem;
   -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #331a00, 5px 5px 4px 7px rgba(0,0,0,0.36);
-box-shadow: 5px 7px 3px 1px #000000, inset 4px 4px 15px -3px #331a00, 5px 5px 4px 5px rgba(0,0,0,0.36);
-transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
-transition-duration: 0.8s;
-transition-property: max-height;
-  /* // justify-content: center;
-  // margin-left: 0;
-  // margin-right: 0; */
+  box-shadow: 5px 7px 3px 1px #000000, inset 4px 4px 15px -3px #331a00, 5px 5px 4px 5px rgba(0,0,0,0.36);
+  transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition-duration: 0.8s;
+  transition-property: max-height;
   overflow: hidden;
   text-transform: cubic-bezier(0.95, 0.05, 0.795, 0.035);
   transition-duration: 0.8s;
   transition-property: max-height;
   z-index: 1;
-  /* // position: relative; */
 }
 
 .new-title-input{
@@ -169,12 +157,10 @@ transition-property: max-height;
 }
 
 .new-body-input{
-
-  width: 600px;
-  max-width: 600px;
+  width: 610px;
+  max-width: 900px;
   text-align: left;
   padding-left: 0.5rem 0.5rem 0.5rem 4rem;
-  /* align-self: center; */
   font-size: calc(12px + 2vmin);
   display: inline;
   border-left: none;
@@ -182,7 +168,6 @@ transition-property: max-height;
   border-top: none;
   border-color: blue;
   opacity: 0.6;
-  /* padding: 0.5rem; */
   margin: 0.5rem;
   background: none;
   outline: none;
@@ -194,9 +179,6 @@ transition-property: max-height;
   align-self: left;
   font-size: calc(12px + 2vmin);
   display: inline;
-  /* border: none;
-  border-right: none;
-  border-top: none; */
   border-color: blue;
   opacity: 0.6;
   padding: 5px;
@@ -206,20 +188,14 @@ transition-property: max-height;
 }
 
 .body-input{
-
   width: 97%;
   max-width: 97%;
   text-align: left;
   padding-left: 0.5rem 0.5rem 0.5rem 4rem;
-  /* align-self: center; */
   font-size: calc(12px + 2vmin);
   display: inline;
-  /* border: none;
-  border-right: none;
-  border-top: none; */
   border-color: blue;
   opacity: 0.6;
-  /* padding: 0.5rem; */
   margin: 0.5rem;
   background: none;
   outline: none;

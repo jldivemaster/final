@@ -2,17 +2,17 @@ import React from 'react'
 import NoteTab from './NoteTab'
 import PropTypes from 'prop-types'
 
-
 export default class Main extends React.Component {
+
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       activeTab: this.props.children[0].props.label
-    }
+                  }
   };
 
   onClickTabItem = (tab) => {
@@ -23,13 +23,9 @@ export default class Main extends React.Component {
   render() {
     const {
       onClickTabItem,
-      props: {
-        children
-      },
-      state: {
-        activeTab
-      }
-    } = this;
+      props: { children },
+      state: { activeTab }
+          } = this;
 
     return (
       <div className="tabs">
@@ -53,5 +49,5 @@ export default class Main extends React.Component {
           })}
         </div>
       </div>
-   )};
+  )};
 }

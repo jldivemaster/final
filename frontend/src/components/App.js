@@ -26,25 +26,21 @@ class App extends React.Component {
       notes: [],
       filteredNotes: [],
       keyword: ""
-    }
+                  }
   };
 
 // =========== View Navigation ======================
   toggleView = () => {
-    if((this.state.signInView === "Sign In") || (this.state.signInView === "Sign In Fail") || (this.state.signInView === "Register Success")) {
-      this.setState({
-        signInView: "Register"
-               })
+    if((this.state.signInView === "Sign In") || (this.state.signInView === "Sign In Fail") || (this.state.signInView === "Register Success") || (this.state.signInView === "Sign Out")) {
+        this.setState({ signInView: "Register" })
     } else if((this.state.signInView === "Register") || (this.state.signInView === "Register Fail")) {
-      this.setState({
-        signInView: "Sign In"
-               })
+        this.setState({ signInView: "Sign In" })
     }
   };
 
   returnHome = () => {
     this.setState({ searching: false, filteredNotes: this.state.notes })
-  }
+  };
 
 // ============== SignIn/Out/Reg ===================
 
@@ -56,35 +52,33 @@ class App extends React.Component {
         username: username,
         password: password,
         password_confirmation: password
-      }
+                      }
       const configObj = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-        },
+                  },
         body: JSON.stringify(dataObj)
-      }
+                          }
 
     fetch(login_url, configObj).then(res => res.json())
-      .then(data => {
+    .then(data => {
         if(data.error) {
-          // console.log(data)
-          this.setState({ signInView: 'Sign In Fail', message: data.error })
+            this.setState({ signInView: 'Sign In Fail', message: data.error })
         } else {
-          this.setState({
-                signedIn: true,
-                user: data.user,
-                notes: [...data.notes],
-                message: "",
-                filteredNotes: [...data.notes]
-              })
+            this.setState({
+                  signedIn: true,
+                  user: data.user,
+                  notes: [...data.notes],
+                  message: "",
+                  filteredNotes: [...data.notes]
+                          })
         }
-      })
-      .catch(function(error) {
+    }).catch(function(error) {
         alert("Async error in fetch. Check console log.");
         console.log(error.message);;
-      })
+    })
   };
 
   handleSignOut = () => {
@@ -93,8 +87,8 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-              }
-    }
+                }
+                      }
 
     fetch(logout_url, configObj).then(res => res.json()).then(data => {
         this.setState({
@@ -109,13 +103,12 @@ class App extends React.Component {
   };
 
   handleRegister = (e) => {
-    // console.log(e.target);
     let firstName = e.target.children[0].children[0].firstChild.lastChild.firstChild.value;
     let lastName = e.target.children[0].children[1].firstChild.lastChild.firstChild.value
     let username = e.target.children[0].children[2].firstChild.lastChild.firstChild.value
     let password = e.target.children[0].children[3].firstChild.lastChild.firstChild.value
     let password_confirmation = e.target.children[0].children[4].firstChild.lastChild.firstChild.value
-     // console.log(firstName, lastName, username, password, password_confirmation)
+
         let dataObj = {
           user: {
           first_name: firstName,
@@ -123,7 +116,7 @@ class App extends React.Component {
           username: username,
           password: password,
           password_confirmation: password_confirmation
-        }};
+        }}
         let configObj = {
           method: 'POST',
           headers: {
@@ -134,25 +127,20 @@ class App extends React.Component {
         };
       fetch(users_url, configObj).then(resp => resp.json()).then(data => {
         if(data.error) {
-          // console.log(data)
           this.setState({ signInView: "Register Fail", message: ('Registration error: ' + data.error) })
         } else {
-          this.setState({
-            signInView: "Register Success"
-          })
+          this.setState({ signInView: "Register Success" })
         }
       }).catch(function(error) {
-        alert("Async Error in fetch. Check console log.");
+          alert("Async Error in fetch. Check console log.");
         console.log(error.message);
       })
-
   };
 
 
 // =========== Profile Update ============================
 
 handleUserEdit = (e) => {
-  // console.log(e)
   const dataObj = {
     'first_name': e.firstname,
     'last_name': e.lastname,
@@ -160,27 +148,24 @@ handleUserEdit = (e) => {
     'location': e.location,
     'program': e.program,
     'current_mod': e.mod
-  };
+                    }
   const configObj = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-    },
+              },
     body: JSON.stringify(dataObj)
-  }
+                      }
 
   fetch(users_url + '/' + this.state.user.id, configObj).then(res => res.json())
     .then(data => {
-    this.setState({
-                  user: data.user,
-                  // editingUser: false
-                })
-        }).catch(function(error) {
-          alert("Async Error in fetch. Check console log.");
-          console.log(error.message);
-        })
-}
+      this.setState({ user: data.user })
+    }).catch(function(error) {
+        alert("Async Error in fetch. Check console log.");
+        console.log(error.message);
+    })
+};
 
 
 // ============Filtering/Sorting Notes ==================
@@ -190,7 +175,6 @@ handleUserEdit = (e) => {
     };
 
     handleSearch = (keyword) => {
-      // console.log(keyword)
       if(keyword === "") {
         return (<h2>Not a valid search. Please try again.</h2>)
       } else {
@@ -198,7 +182,7 @@ handleUserEdit = (e) => {
         this.setState({
           searching: true,
           filteredNotes: filtered
-        })
+                      })
       }
     };
 
@@ -206,35 +190,34 @@ handleUserEdit = (e) => {
 // ===========Updating Notes ============================
 
   handleNoteCreate = (e) => {
-
-    let title = e.target.parentNode.parentNode.children[0].value;
-    let ref = e.target.parentNode.parentNode.children[1].value;
-    let body = e.target.parentNode.parentNode.children[2].value;
-    let arr = e.target.parentNode.previousSibling.innerText.split(" ");
+    // console.log(e.target.parentNode.parentNode.parentNode.parentNode.children)
+    let title = e.target.parentNode.parentNode.parentNode.parentNode.children[0].value;
+    let ref = e.target.parentNode.parentNode.parentNode.parentNode.children[1].value;
+    let body = e.target.parentNode.parentNode.parentNode.parentNode.children[2].value;
+    let arr = e.target.parentNode.parentNode.parentNode.previousSibling.innerText.split(" ");
     let mod = arr[arr.length-1];
-    console.log(title, ref, body, mod)
+    console.log(title, ref, body, arr, mod)
     const dataObj = {
       'lab_title': title,
       'quick_ref': ref,
       'body': body,
       'mod_num': mod,
       'user_id': this.state.user.id
-    };
+                  };
     const configObj = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      },
+              },
       body: JSON.stringify(dataObj)
     }
     fetch(notes_url, configObj).then(res => res.json()).then(data => {
       this.setState({
         notes: [...this.state.notes, data.note]
-      })
+                  })
       alert(data.message);
     })
-
   };
 
     handleNoteDelete = (id) => {
@@ -244,8 +227,8 @@ handleUserEdit = (e) => {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
+                }
       }
-    }
       fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
         if(data.error) {
           this.setState({ message: data.error })
@@ -256,11 +239,10 @@ handleUserEdit = (e) => {
     };
 
     handleNoteEdit = (target) => {
-      // console.log(target)
       let id = target.id
       let ref = target.ref
       let body = target.body
-      // console.log(id, ref, body)
+
       const dataObj = {
         'quick_ref': ref,
         'body': body
@@ -274,22 +256,18 @@ handleUserEdit = (e) => {
         body: JSON.stringify(dataObj)
       }
       fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
-        // console.log(data);
         let newNotes = this.state.notes
         let note = this.state.notes.find(function(ele) {
           return ele.id === id
         })
-        // console.log(note)
         let index = newNotes.indexOf(note)
         newNotes[index] = data.note
-        // console.log(newNotes)
         this.setState({
           notes: newNotes
         })
-        // console.log(this.state.notes)
       })
     };
-// **
+
 // ***
 
 render() {
@@ -298,12 +276,12 @@ render() {
      <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
      {this.signedIn()}
     </div>
-)};
+  )};
 
     signedIn() {
       if(this.state.signedIn && !this.state.searching) {
-     return (
-      <div>
+        return (
+          <div>
             <Main className="main">
 
             <div className="profile-tab" label="My Profile">
@@ -327,15 +305,14 @@ render() {
                 <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
             </Main>
-      </div>
-    )} else if (this.state.signedIn && this.state.searching) {
-      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />)
-    } else {
-      return (
-        <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
-      )}
-    };
-
+          </div>
+      )} else if (this.state.signedIn && this.state.searching) {
+        return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />)
+      } else {
+        return (
+          <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
+        )}
+      };
 }
 
 export default App;

@@ -3,7 +3,6 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   def index
     @notes = Note.all
-    # @mynotes = Note.all.filter{|note| note.user_id == current_user.id}
   end
 
   def new

@@ -1,13 +1,11 @@
 #profile {
   font-size: calc(15px + 2vmin);
-  /* color: white; */
 }
 
 .profile-list {
   max-width: 100vh;
   display: static;
   flex-direction: column;
-  /* text-align: left; */
 }
 
 .edit-profile-list{
@@ -17,7 +15,6 @@
   max-width: 100vh;
   display: flex;
   flex-direction: column;
-  /* text-align: left; */
 }
 
 h1{
@@ -32,12 +29,10 @@ h1{
   opacity: 0.6;
 }
 
-.btn-container{
+.user-btn-container{
   max-width: 80%;
   padding-left: 10rem;
-  /* align-content: center; */
   justify-content: space-around;
-  /* background-color: black; */
 }
 
 .input{
