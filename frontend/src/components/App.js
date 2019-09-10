@@ -151,34 +151,15 @@ class App extends React.Component {
 
 // =========== Profile Update ============================
 
-// startUserEdit = () => {
-//   // this.setState({ editingUser: true })
-// };
-
 handleUserEdit = (e) => {
-  // console.log(e.target.parentNode.parentNode)
-  // let name = e.target.parentNode.parentNode.children[0].children[0].innerText
-  // let username = e.target.parentNode.parentNode.children[1].children[0].innerText
-  // let location = e.target.parentNode.parentNode.children[2].children[0].innerText
-  // let program = e.target.parentNode.parentNode.children[3].children[0].innerText
-  // let mod = e.target.parentNode.parentNode.children[4].children[0].innerText
-  // let firstname = name.split(" ")[0]
-  // let lastname = name.split(" ")[1]
-  let firstname = e.target.parentNode.parentNode.children[0].lastChild.innerText
-  let lastname = e.target.parentNode.parentNode.children[1].lastChild.innerText
-  let username = e.target.parentNode.parentNode.children[2].lastChild.innerText
-  let location = e.target.parentNode.parentNode.children[3].lastChild.innerText
-  let program = e.target.parentNode.parentNode.children[4].lastChild.innerText
-  let mod = e.target.parentNode.parentNode.children[5].lastChild.innerText
-  // let mod = 5
-  // console.log(firstname, lastname, username, location, program, mod)
+  // console.log(e)
   const dataObj = {
-    'first_name': firstname,
-    'last_name': lastname,
-    'username': username,
-    'location': location,
-    'program': program,
-    'current_mod': mod
+    'first_name': e.firstname,
+    'last_name': e.lastname,
+    'username': e.username,
+    'location': e.location,
+    'program': e.program,
+    'current_mod': e.mod
   };
   const configObj = {
     method: 'PATCH',

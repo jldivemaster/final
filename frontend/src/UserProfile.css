@@ -10,12 +10,27 @@
   /* text-align: left; */
 }
 
+.edit-profile-list{
+  border-style: double;
+  justify-content: center;
+  margin-left: 2rem;
+  padding-bottom: 2rem;
+  max-width: 100vh;
+  display: static;
+  flex-direction: column;
+  /* text-align: left; */
+}
+
 h1{
   font-style: italic;
 }
 
 .profile-btn{
-  opacity: 0.55;
+  opacity: 0.6;
+}
+
+.edit-profile-btn{
+  opacity: 0.6;
 }
 
 .input{

@@ -111,7 +111,7 @@
   align-self: left;
   font-size: calc(12px + 2vmin);
   display: inline;
-  border-left: none;
+  border: none;
   border-right: none;
   border-top: none;
   border-color: blue;
@@ -126,16 +126,17 @@
 
   width: 97%;
   max-width: 97%;
-  text-align: center;
+  text-align: left;
+  padding-left: 0.5rem 0.5rem 0.5rem 4rem;
   /* align-self: center; */
   font-size: calc(12px + 2vmin);
   display: inline;
-  /* border-left: none;
+  border: none;
   border-right: none;
-  border-top: none; */
+  border-top: none;
   border-color: blue;
   opacity: 0.6;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   margin: 0.5rem;
   background: none;
   outline: none;

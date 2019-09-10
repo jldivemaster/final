@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import style from '../Note.css';
+import '../Note.css';
 
 export default class Note extends React.Component {
 
@@ -105,7 +105,6 @@ export default class Note extends React.Component {
 
   render() {
     const {
-      props: { lab_title, quick_ref, body,  },
       state: { opened }
          } = this
 
