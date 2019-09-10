@@ -78,10 +78,6 @@ export default function Register(props) {
     setValues({...values, [name]: e.target.value })
   };
 
-  // const showMessage = () => {
-  //   return props.message
-  // }
-
   return (
     <Container component="body" maxWidth="sm">
       <CssBaseline />
@@ -185,11 +181,8 @@ export default function Register(props) {
               </Link>
             </Grid>
           </Grid>
-
         </form>
-
       </div>
-
       <Box mt={5}>
         <Copyright />
       </Box>

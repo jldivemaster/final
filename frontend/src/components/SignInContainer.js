@@ -7,41 +7,37 @@ export default class SignInContainer extends React.Component {
   constructor(props) {
       super(props);
     this.state = { currentView: 'signIn' }
-  }
+  };
 
-
-   render() {
+  render() {
      switch(this.props.selectView) {
        case 'Sign In':
-        return(<div  className='sign-in'>
+        return(
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} />
-               </div>);
+               );
        case 'Register':
-        return(<div>
-                <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} />
-                </div> );
+        return( <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} />
+                );
        case 'Register Success':
-        return(<div>
+        return(
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="Your account has been created!  Log in to continue."/>
-               </div>);
+               );
       case 'Register Fail':
-        return(<div>
+        return(
                 <Register handleRegister={this.props.handleRegister} toggleView={this.props.toggleView} message={this.props.message}/>
-              </div>);
+              );
       case 'Sign In Fail':
-        return(<div>
+        return(
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message={this.props.message}/>
-              </div>);
+              );
       case 'Sign Out':
-        return(<div>
+        return(
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="You are logged out." />
-              </div>);
+              );
        default:
-        return(<div>
+        return(
                 <SignIn handleSignIn={this.props.handleSignIn} toggleView={this.props.toggleView} message="Default hit. Check switch in container component." />
-               </div>)
+               )
      }
-   }
-
-
+  };
 }

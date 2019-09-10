@@ -14,13 +14,9 @@ export default class NoteTab extends React.Component {
   };
 
   render() {
-    const {
-      onClick,
-      props: {
-        activeTab,
-        label
-      },
-    } = this;
+    const { onClick,
+            props: { activeTab, label },
+          } = this;
 
     let className = 'tab-list-item';
     if(activeTab === label) {
@@ -28,11 +24,8 @@ export default class NoteTab extends React.Component {
     }
 
     return (
-      <li
-        className={className}
-        onClick={onClick}
-      >
+      <li className={className} onClick={onClick} >
         {label}
       </li>
-    )};
+  )};
 }

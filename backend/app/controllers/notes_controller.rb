@@ -3,7 +3,6 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   def index
     @notes = Note.all
-    # @mynotes = Note.all.filter{|note| note.user_id == current_user.id}
   end
 
   def new
@@ -13,9 +12,9 @@ class NotesController < ApplicationController
   def create
     @note = Note.create(note_params)
     if @note.save
-      redirect_to @note
+      render json: { note: @note, message: "Note has been created." }
     else
-      render :new
+      render json: { error: @note.errors.full_messages }
     end
   end
 
@@ -28,9 +27,9 @@ class NotesController < ApplicationController
   def update
     @note.update(note_params)
     if @note.save
-      redirect_to @notes
+      render json: { note: @note, message: 'Note successfully updated.' }
     else
-      render :edit
+      render json: { note: @note, error: @note.errors.full_messages }
     end
   end
 
@@ -43,7 +42,7 @@ class NotesController < ApplicationController
   private
 
       def note_params
-        params.require(:note).permit(:lab_title, :quick_ref, :body, :mod_num)
+        params.require(:note).permit(:lab_title, :quick_ref, :body, :mod_num, :user_id)
       end
 
       def set_note

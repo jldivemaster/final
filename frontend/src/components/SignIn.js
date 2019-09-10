@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Paper, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography } from '@material-ui/core';
+import { Button, Paper, Avatar, CssBaseline, TextField, Link, Grid, Box, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -55,7 +55,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignIn(props) {
-  // console.log(props)
   let classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -71,13 +70,8 @@ export default function SignIn(props) {
   const formSubmit = (e) => {
     e.preventDefault();
     e.persist();
-    // console.log("form" + e)
     props.handleSignIn(e)
   };
-
-  // const linkClick = () => {
-  //   console.log("Retrieve PW")
-  // };
 
   return (
     <Grid container component='main' className={classes.root}>
@@ -121,10 +115,7 @@ export default function SignIn(props) {
               value={values.password}
               onChange={handleChange('password')}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth

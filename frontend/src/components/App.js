@@ -6,11 +6,8 @@ import UserProfile from './UserProfile'
 import NoteList from './NoteList'
 import SignInContainer from './SignInContainer'
 import SearchResults from './SearchResults'
-// import { RIEToggle, RIEInput, RIETextArea, RIENumber, RIETags, RIESelect } from 'riek'
-// import _ from 'lodash'
 
-
-// ***  Set Proper server URLS ==============
+// ***  Server URLS ==============
 const users_url = 'http://localhost:3000/users'
 const notes_url = 'http://localhost:3000/notes'
 const login_url = 'http://localhost:3000/login'
@@ -28,27 +25,22 @@ class App extends React.Component {
       user: {},
       notes: [],
       filteredNotes: [],
-      keyword: "",
-      // editingUser: false,
-    }
+      keyword: ""
+                  }
   };
 
 // =========== View Navigation ======================
   toggleView = () => {
-    if((this.state.signInView === "Sign In") || (this.state.signInView === "Sign In Fail") || (this.state.signInView === "Register Success")) {
-      this.setState({
-        signInView: "Register"
-               })
+    if((this.state.signInView === "Sign In") || (this.state.signInView === "Sign In Fail") || (this.state.signInView === "Register Success") || (this.state.signInView === "Sign Out")) {
+        this.setState({ signInView: "Register" })
     } else if((this.state.signInView === "Register") || (this.state.signInView === "Register Fail")) {
-      this.setState({
-        signInView: "Sign In"
-               })
+        this.setState({ signInView: "Sign In" })
     }
   };
 
   returnHome = () => {
     this.setState({ searching: false, filteredNotes: this.state.notes })
-  }
+  };
 
 // ============== SignIn/Out/Reg ===================
 
@@ -60,35 +52,33 @@ class App extends React.Component {
         username: username,
         password: password,
         password_confirmation: password
-      }
+                      }
       const configObj = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-        },
+                  },
         body: JSON.stringify(dataObj)
-      }
+                          }
 
     fetch(login_url, configObj).then(res => res.json())
-      .then(data => {
+    .then(data => {
         if(data.error) {
-          console.log(data)
-          this.setState({ signInView: 'Sign In Fail', message: data.error })
+            this.setState({ signInView: 'Sign In Fail', message: data.error })
         } else {
-          this.setState({
-                signedIn: true,
-                user: data.user,
-                notes: [...data.notes],
-                message: "",
-                filteredNotes: [...data.notes]
-              })
+            this.setState({
+                  signedIn: true,
+                  user: data.user,
+                  notes: [...data.notes],
+                  message: "",
+                  filteredNotes: [...data.notes]
+                          })
         }
-      })
-      .catch(function(error) {
+    }).catch(function(error) {
         alert("Async error in fetch. Check console log.");
         console.log(error.message);;
-      })
+    })
   };
 
   handleSignOut = () => {
@@ -97,8 +87,8 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-              }
-    }
+                }
+                      }
 
     fetch(logout_url, configObj).then(res => res.json()).then(data => {
         this.setState({
@@ -113,13 +103,12 @@ class App extends React.Component {
   };
 
   handleRegister = (e) => {
-    // console.log(e.target);
     let firstName = e.target.children[0].children[0].firstChild.lastChild.firstChild.value;
     let lastName = e.target.children[0].children[1].firstChild.lastChild.firstChild.value
     let username = e.target.children[0].children[2].firstChild.lastChild.firstChild.value
     let password = e.target.children[0].children[3].firstChild.lastChild.firstChild.value
     let password_confirmation = e.target.children[0].children[4].firstChild.lastChild.firstChild.value
-     // console.log(firstName, lastName, username, password, password_confirmation)
+
         let dataObj = {
           user: {
           first_name: firstName,
@@ -127,7 +116,7 @@ class App extends React.Component {
           username: username,
           password: password,
           password_confirmation: password_confirmation
-        }};
+        }}
         let configObj = {
           method: 'POST',
           headers: {
@@ -138,72 +127,45 @@ class App extends React.Component {
         };
       fetch(users_url, configObj).then(resp => resp.json()).then(data => {
         if(data.error) {
-          // console.log(data)
           this.setState({ signInView: "Register Fail", message: ('Registration error: ' + data.error) })
         } else {
-          this.setState({
-            signInView: "Register Success"
-          })
+          this.setState({ signInView: "Register Success" })
         }
       }).catch(function(error) {
-        alert("Async Error in fetch. Check console log.");
+          alert("Async Error in fetch. Check console log.");
         console.log(error.message);
       })
-
   };
 
 
 // =========== Profile Update ============================
 
-// startUserEdit = () => {
-//   // this.setState({ editingUser: true })
-// };
-
 handleUserEdit = (e) => {
-  // console.log(e.target.parentNode.parentNode)
-  // let name = e.target.parentNode.parentNode.children[0].children[0].innerText
-  // let username = e.target.parentNode.parentNode.children[1].children[0].innerText
-  // let location = e.target.parentNode.parentNode.children[2].children[0].innerText
-  // let program = e.target.parentNode.parentNode.children[3].children[0].innerText
-  // let mod = e.target.parentNode.parentNode.children[4].children[0].innerText
-  // let firstname = name.split(" ")[0]
-  // let lastname = name.split(" ")[1]
-  let firstname = e.target.parentNode.parentNode.children[0].lastChild.innerText
-  let lastname = e.target.parentNode.parentNode.children[1].lastChild.innerText
-  let username = e.target.parentNode.parentNode.children[2].lastChild.innerText
-  let location = e.target.parentNode.parentNode.children[3].lastChild.innerText
-  let program = e.target.parentNode.parentNode.children[4].lastChild.innerText
-  let mod = e.target.parentNode.parentNode.children[5].lastChild.innerText
-  // let mod = 5
-  // console.log(firstname, lastname, username, location, program, mod)
   const dataObj = {
-    'first_name': firstname,
-    'last_name': lastname,
-    'username': username,
-    'location': location,
-    'program': program,
-    'current_mod': mod
-  };
+    'first_name': e.firstname,
+    'last_name': e.lastname,
+    'username': e.username,
+    'location': e.location,
+    'program': e.program,
+    'current_mod': e.mod
+                    }
   const configObj = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-    },
+              },
     body: JSON.stringify(dataObj)
-  }
+                      }
 
   fetch(users_url + '/' + this.state.user.id, configObj).then(res => res.json())
     .then(data => {
-    this.setState({
-                  user: data.user,
-                  // editingUser: false
-                })
-        }).catch(function(error) {
-          alert("Async Error in fetch. Check console log.");
-          console.log(error.message);
-        })
-}
+      this.setState({ user: data.user })
+    }).catch(function(error) {
+        alert("Async Error in fetch. Check console log.");
+        console.log(error.message);
+    })
+};
 
 
 // ============Filtering/Sorting Notes ==================
@@ -213,7 +175,6 @@ handleUserEdit = (e) => {
     };
 
     handleSearch = (keyword) => {
-      console.log(keyword)
       if(keyword === "") {
         return (<h2>Not a valid search. Please try again.</h2>)
       } else {
@@ -221,45 +182,53 @@ handleUserEdit = (e) => {
         this.setState({
           searching: true,
           filteredNotes: filtered
-        })
+                      })
       }
     };
 
 
 // ===========Updating Notes ============================
 
-  handleNoteCreate = (data) => {
-    let title = data.title;
-    let ref = data.ref;
-    let body = data.body;
+  handleNoteCreate = (e) => {
+    // console.log(e.target.parentNode.parentNode.parentNode.parentNode.children)
+    let title = e.target.parentNode.parentNode.parentNode.parentNode.children[0].value;
+    let ref = e.target.parentNode.parentNode.parentNode.parentNode.children[1].value;
+    let body = e.target.parentNode.parentNode.parentNode.parentNode.children[2].value;
+    let arr = e.target.parentNode.parentNode.parentNode.previousSibling.innerText.split(" ");
+    let mod = arr[arr.length-1];
+    console.log(title, ref, body, arr, mod)
     const dataObj = {
       'lab_title': title,
       'quick_ref': ref,
       'body': body,
+      'mod_num': mod,
       'user_id': this.state.user.id
-    };
+                  };
     const configObj = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      },
+              },
       body: JSON.stringify(dataObj)
     }
-    fetch(notes_url, configObj).then(res => res.json()).then(data => (console.log(data)))
+    fetch(notes_url, configObj).then(res => res.json()).then(data => {
+      this.setState({
+        notes: [...this.state.notes, data.note]
+                  })
+      alert(data.message);
+    })
   };
 
     handleNoteDelete = (id) => {
       console.log('fired', id)
-
-
       const configObj = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
+                }
       }
-    }
       fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
         if(data.error) {
           this.setState({ message: data.error })
@@ -269,14 +238,14 @@ handleUserEdit = (e) => {
         } })
     };
 
-    handleNoteEdit = (id) => {
-      let title;
-      let ref;
-      let body;
+    handleNoteEdit = (target) => {
+      let id = target.id
+      let ref = target.ref
+      let body = target.body
+
       const dataObj = {
-        'lab_title': title,
         'quick_ref': ref,
-        'body': body,
+        'body': body
       }
       const configObj = {
         method: 'PATCH',
@@ -286,9 +255,19 @@ handleUserEdit = (e) => {
         },
         body: JSON.stringify(dataObj)
       }
-      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => (console.log(data)))
+      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
+        let newNotes = this.state.notes
+        let note = this.state.notes.find(function(ele) {
+          return ele.id === id
+        })
+        let index = newNotes.indexOf(note)
+        newNotes[index] = data.note
+        this.setState({
+          notes: newNotes
+        })
+      })
     };
-// **
+
 // ***
 
 render() {
@@ -297,13 +276,12 @@ render() {
      <Header showSearchBar={this.state.signedIn} onSearch={this.handleSearch} onSignOut={this.handleSignOut}/>
      {this.signedIn()}
     </div>
-)};
+  )};
 
     signedIn() {
       if(this.state.signedIn && !this.state.searching) {
-     return (
-      <div>
-
+        return (
+          <div>
             <Main className="main">
 
             <div className="profile-tab" label="My Profile">
@@ -312,30 +290,29 @@ render() {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
             </div>
               <div label="Mod 1">
-                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 2">
-                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 3">
-                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 4">
-                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} onUpdate={this.handleNoteUpdate} />
+                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
             </Main>
-      </div>
-    )} else if (this.state.signedIn && this.state.searching) {
-      return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} />)
-    } else {
-      return (
-        <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
-      )}
-    };
-
+          </div>
+      )} else if (this.state.signedIn && this.state.searching) {
+        return ( <SearchResults notes={this.state.filteredNotes} returnHome={this.returnHome} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />)
+      } else {
+        return (
+          <SignInContainer handleSignIn={this.handleSignIn} handleRegister={this.handleRegister} toggleView={this.toggleView} selectView={this.state.signInView} message={this.state.message}/>
+        )}
+      };
 }
 
 export default App;

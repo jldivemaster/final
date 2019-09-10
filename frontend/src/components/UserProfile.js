@@ -1,10 +1,6 @@
 import React from 'react'
 import '../UserProfile.css'
-import { RIEInput, RIETextArea } from 'riek'
-import _ from 'lodash'
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
+import { Button, Grid } from '@material-ui/core';
 
 
 export default class UserProfile extends React.Component {
@@ -18,53 +14,22 @@ export default class UserProfile extends React.Component {
     location: this.props.user.location,
     program: this.props.user.program,
     mod: this.props.user.current_mod
-   }
- };
-
- // const classes = {
- //   profileBtn: {
- //     opacity: '0.5'
- //   }
- // };
-
-
- // const [values, setValues] = React.useState({
- //   username: props.user.username,
- //   fullName: props.user.first_name + " " + props.user.last_name,
- //   location: props.user.location,
- //   program: props.user.program,
- //   mod: props.user.current_mod,
- //   editing: false
- // });
- //
- //  const handleClick = () => {
- //    setValues({ ...values, editing: true })
- //    // this.props.startUserEdit()
- //  };
- //
- //  const handleChange = name => (e) => {
- //    setValues({...values, [name]: e.target.value })
- //  }
- //
- //  const handleUserEdit = (e) => {
- //    e.persist();
- //    props.handleUserEdit(e)
- //    setValues({ ...values, editing: false })
- //  }
+                }
+  };
 
  handleChange = name => (e) => {
-    this.setState({ [name]: e[name] })
- }
+    this.setState({ [name]: e.target.value })
+ };
 
  handleClick = () => {
-   this.setState({ editing: true })
+   this.setState({ editing: !this.state.editing })
  };
 
  handleUserEdit = (e) => {
    e.persist();
-  this.props.handleUserEdit(e)
-   this.setState({ editing: false })
- }
+   this.props.handleUserEdit(this.state)
+   this.handleClick();
+ };
 
  setValue = (value) => {
    if(value == null) {
@@ -72,53 +37,62 @@ export default class UserProfile extends React.Component {
    } else {
      return "  " + value
    }
- }
+ };
 
-
-  render() {
-    // console.log(this.props.user)
+  profileView = () => {
     if (this.state.editing) {
       return (
-        <div id="profile">
-          <h2>User Profile</h2>
-          <div className="profile-list">
+        <div>
+          <div className="edit-profile-list">
             <ul id="firstname"> First Name:
-              <RIEInput name='firstname' value={this.setValue(this.state.firstname)} change={this.handleChange('firstname')} propName='firstname' validate={_.isString} />
+              <input type="text" size='10' className='input' name='firstname' value={this.state.firstname} onChange={this.handleChange('firstname')} />
             </ul>
             <ul id="lastname"> Last Name:
-              <RIEInput name='lastname' value={this.setValue(this.state.lastname)} change={this.handleChange('lastname')} propName='lastname' validate={_.isString} />
+              <input type='text' className='input' size='10' name='lastname' value={this.state.lastname} onChange={this.handleChange('lastname')} />
             </ul>
             <ul id="username"> User Name:
-              <RIEInput name='username' value={this.setValue(this.state.username)} change={this.handleChange('username')} propName='username' validate={_.isString} />
+              <input size='10' type="text" className='input' name='username' value={this.state.username} onChange={this.handleChange('username')} />
             </ul>
             <ul id="location"> Location:
-              <RIEInput name='location' value={this.setValue(this.state.location)} change={this.handleChange('location')} propName='location' validate={_.isString} />
+              <input size='10' type="text" className='input' name='location' value={this.state.location} onChange={this.handleChange('location')} />
             </ul>
             <ul id="program"> Program:
-              <RIEInput name='program' value={this.setValue(this.state.program)} change={this.handleChange('program')} propName='program' validate={_.isString} />
+              <input size='20' type="text" className='input' name='program' value={this.state.program} onChange={this.handleChange('program')} />
             </ul>
             <ul id="mod"> Mod #
-              <RIEInput name='mod' value={this.setValue(this.state.mod)} change={this.handleChange('mod')} propName='mod' validate={_.isString} />
+              <input type="text" size='2' className='input' name='mod' value={this.state.mod} onChange={this.handleChange('mod')} />
             </ul>
-            <Button variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
+            <Grid container className='user-btn-container'>
+              <Grid>
+                <Button className='edit-profile-btn' variant="contained" onClick={this.handleUserEdit}>Save Edit</Button>
+              </Grid>
+              <Grid>
+                <Button className='profile-btn' variant="contained" onClick={this.handleClick}>Cancel Edit</Button>
+              </Grid>
+            </Grid>
           </div>
         </div>
       )
     } else {
-    return (
-      <div id="profile">
-        <h2>User Profile</h2>
+      return (
         <div className="profile-list">
-          <ul>Name: {this.state.firstname + " " + this.state.lastname}</ul>
+          <ul>Name: <p>{this.state.firstname + " " + this.state.lastname}</p></ul>
           <ul>User Name: {this.state.username}</ul>
           <ul>Location: {this.state.location}</ul>
           <ul>Program: {this.state.program}</ul>
           <ul>Mod: {this.state.mod}</ul>
-          <Button variant="contained" onClick={this.handleClick}>Edit Profile</Button>
+          <Button className='profile-btn' variant="contained" onClick={this.handleClick}>Edit Profile</Button>
         </div>
-      </div>
     )}
-  }
+  };
+
+  render() {
+    return(
+      <div id="profile">
+        <h2>User Profile</h2>
+        {this.profileView()}
+      </div>
+  )};
 }
 
 // <h4 contentEditable onChange={this.handleChange('fullname')}>{this.state.fullName}</h4>
