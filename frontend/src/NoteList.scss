@@ -14,6 +14,17 @@ h2{
   text-decoration: underline;
 }
 
+.new-note-container{
+  display: grid;
+  margin-left: 5rem;
+}
+
+.new-btn{
+  opacity: 0.6;
+  display: flex;
+  align-self: flex-start;
+}
+
 .accordion-list{
   list-style: none;
   align-items: center;

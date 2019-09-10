@@ -205,14 +205,19 @@ handleUserEdit = (e) => {
 
 // ===========Updating Notes ============================
 
-  handleNoteCreate = (data) => {
-    let title = data.title;
-    let ref = data.ref;
-    let body = data.body;
+  handleNoteCreate = (e) => {
+
+    let title = e.target.parentNode.parentNode.children[0].value;
+    let ref = e.target.parentNode.parentNode.children[1].value;
+    let body = e.target.parentNode.parentNode.children[2].value;
+    let arr = e.target.parentNode.previousSibling.innerText.split(" ");
+    let mod = arr[arr.length-1];
+    console.log(title, ref, body, mod)
     const dataObj = {
       'lab_title': title,
       'quick_ref': ref,
       'body': body,
+      'mod_num': mod,
       'user_id': this.state.user.id
     };
     const configObj = {
@@ -223,13 +228,17 @@ handleUserEdit = (e) => {
       },
       body: JSON.stringify(dataObj)
     }
-    fetch(notes_url, configObj).then(res => res.json()).then(data => (console.log(data)))
+    fetch(notes_url, configObj).then(res => res.json()).then(data => {
+      this.setState({
+        notes: [...this.state.notes, data.note]
+      })
+      alert(data.message);
+    })
+
   };
 
     handleNoteDelete = (id) => {
       console.log('fired', id)
-
-
       const configObj = {
         method: 'DELETE',
         headers: {
@@ -303,19 +312,19 @@ render() {
 
             <div className="tab-list-item" label=""></div>
             <div label="Pre Work">
-              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
+              <NoteList notes={this.notesByMod(0)} mod="0" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
             </div>
               <div label="Mod 1">
-                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
+                <NoteList notes={this.notesByMod(1)} mod="1" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 2">
-                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
+                <NoteList notes={this.notesByMod(2)} mod='2' message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 3">
-                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
+                <NoteList notes={this.notesByMod(3)} mod="3" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
               <div label="Mod 4">
-                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} />
+                <NoteList notes={this.notesByMod(4)} mod="4" message={this.state.message} handleNoteDelete={this.handleNoteDelete} handleNoteEdit={this.handleNoteEdit} newNote={this.handleNoteCreate}/>
               </div>
             </Main>
       </div>

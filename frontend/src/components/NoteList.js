@@ -1,10 +1,10 @@
 import React from 'react'
 import '../NoteList.scss'
 import Note from './Note'
+import NewNote from './NewNote'
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete'
-import { List, ListItem, Divider } from '@material-ui/core';
+import { List, ListItem, Divider, Fab, Button, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NoteList(props) {
+
+  const [values, setValues] = React.useState({
+    newNote: false
+  })
 
   const classes = useStyles();
 
@@ -30,12 +34,26 @@ export default function NoteList(props) {
     alert("Note successfully deleted")
   }
 
+  const toggleView = () => {
+    setValues({...values, newNote: !values.newNote })
+  }
+
+  const newNoteView = () => {
+    if(values.newNote){
+      return(
+        <NewNote mod={props.mod} onNewNote={props.newNote} onToggle={toggleView}/>
+    )} else {
+      return(
+        <Button className='new-btn' variant='contained' onClick={toggleView}>Add A Note</Button>
+    )}
+  };
 
 
     // const modNum = this.setModNum();
     return(
       <div {...{ className: "wrapper" }}>
       <h2>{setModNum()}</h2>
+         <Grid container className='new-note-container'>{newNoteView()}</Grid>
         <List {...{ className: "accordian-list" }} >
           {props.notes.map((note, key) => {
             return (
@@ -48,7 +66,6 @@ export default function NoteList(props) {
               </ListItem>
               <Divider variant="inset" />
               </ul>
-
             )
           })}
         </List>

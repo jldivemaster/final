@@ -13,9 +13,9 @@ class NotesController < ApplicationController
   def create
     @note = Note.create(note_params)
     if @note.save
-      redirect_to @note
+      render json: { note: @note, message: "Note has been created." }
     else
-      render :new
+      render json: { error: @note.errors.full_messages }
     end
   end
 
@@ -43,7 +43,7 @@ class NotesController < ApplicationController
   private
 
       def note_params
-        params.require(:note).permit(:lab_title, :quick_ref, :body, :mod_num)
+        params.require(:note).permit(:lab_title, :quick_ref, :body, :mod_num, :user_id)
       end
 
       def set_note
