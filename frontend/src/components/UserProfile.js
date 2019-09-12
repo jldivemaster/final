@@ -94,9 +94,3 @@ export default class UserProfile extends React.Component {
       </div>
   )};
 }
-
-// <h4 contentEditable onChange={this.handleChange('fullname')}>{this.state.fullName}</h4>
-// <h4 contentEditable onChange={this.handleChange('username')}>{this.state.username}</h4>
-// <h4 contentEditable onChange={this.handleChange('location')}>{this.state.location}</h4>
-// <h4 contentEditable onChange={this.handleChange('program')}>{this.state.program}</h4>
-// <h4 contentEditable onChange={this.handleChange('mod')}>{this.state.mod}</h4>
