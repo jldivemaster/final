@@ -218,8 +218,8 @@ handleUserEdit = (e) => {
   };
 
     handleNoteDelete = (id) => {
-      console.log('fired', id)
-      alert("Note successfully deleted")
+      // console.log('fired', id)
+      // alert("Note successfully deleted")
       const configObj = {
         method: 'DELETE',
         headers: {
@@ -227,14 +227,15 @@ handleUserEdit = (e) => {
           'Accept': 'application/json'
                 }
       }
-      fetch(notes_url + `/${id}`, configObj).then(res => res.json()).then(data => {
+      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
+        // console.log(data)
         if(data.error) {
           this.setState({ message: data.error })
         } else {
           this.setState({ message: data.message,
-                          notes: [...this.data.notes] })
+                          notes: [...data.notes] })
         } })
-        console.log(this.state.notes)
+        // console.log(this.state.notes)
     };
 
     handleNoteEdit = (target) => {

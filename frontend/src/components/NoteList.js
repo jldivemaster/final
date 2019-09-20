@@ -29,12 +29,11 @@ export default class NoteList extends React.Component {
     }
   };
 
-  // const handleNoteDelete = e => {
-  //   e.persist();
-  //   console.log(e.target)
-  //   // setValues({...values, notes: props.notes })
-  //   // props.handleNoteDelete(e.target.id)
-  // };
+  handleNoteDelete = e => {
+    e.persist();
+    // console.log(e.currentTarget.id)
+    this.props.handleNoteDelete(e.currentTarget.id)
+  };
 
   handleNewNote = (note) => {
     this.props.newNote(note)
@@ -64,8 +63,8 @@ export default class NoteList extends React.Component {
             return (
               <ul {...{ className: "accordian-list__item", key }}>
               <ListItem >
-                <Note note={note} handleNoteEdit={this.props.handleNoteEdit} handleNoteDelete={this.props.handleNoteDelete}/>
-                <Fab aria-label="delete" size='small' id={note.id} >
+                <Note note={note} handleNoteEdit={this.props.handleNoteEdit} handleNoteDelete={this.handleNoteDelete}/>
+                <Fab aria-label="delete" size='small' id={note.id} style={{ 'opacity': 0.5 }} onClick={this.handleNoteDelete}>
                 <DeleteIcon className='delete-btn' label='Delete' />
                 </Fab>
               </ListItem>

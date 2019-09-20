@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import '../Note.css';
 
 export default class Note extends React.Component {
@@ -38,9 +38,9 @@ export default class Note extends React.Component {
   };
 
 
-  handleDelete = () => {
-    this.props.handleNoteDelete(this.state.id)
-  };
+  // handleDelete = () => {
+  //   this.props.handleNoteDelete(this.state.id)
+  // };
 
   setValue = (value) => {
     if(value == null) {
@@ -119,11 +119,6 @@ export default class Note extends React.Component {
                     </Grid>
                     <Grid>
                       <div className='p' {...{ className: 'accordian-item__prompt' }}>{this.setEditPrompt()}</div>
-                    </Grid>
-                    <Grid>
-                      <Fab aria-label="delete" size='small' onClick={this.handleDelete} >
-                        <DeleteIcon className='delete-btn' label='Delete' />
-                      </Fab>
                     </Grid>
                   </Grid>
               </div>

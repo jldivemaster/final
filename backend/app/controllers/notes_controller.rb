@@ -36,8 +36,8 @@ class NotesController < ApplicationController
 
   def destroy
     @note.delete
-
-    redirect_to notes_path
+    @notes = Note.all
+    render json: { notes: @notes }
   end
 
   private
