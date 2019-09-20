@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import '../Note.css';
 
 export default class Note extends React.Component {
@@ -37,11 +38,9 @@ export default class Note extends React.Component {
   };
 
 
-  handleDelete = (e) => {
-    e.persist();
-    let id = e.target.id.split("-")[1]
-    this.props.handleNoteDelete(id)
-  };
+  // handleDelete = () => {
+  //   this.props.handleNoteDelete(this.state.id)
+  // };
 
   setValue = (value) => {
     if(value == null) {
@@ -101,7 +100,7 @@ export default class Note extends React.Component {
             <h3 {...{ className: 'accordion-item__title' }} onClick={this.openClose} >
               {this.props.note.lab_title}
             </h3>
-            <h4 {...{ className: 'accordion-item__ref' }} onDoubleClick={this.toggleRefEdit}>
+            <h4 {...{ className: 'accordion-item__ref' }} >
               {this.refView()}
             </h4>
             <span {...{ className: 'accordion-item__icon' }}/>
@@ -109,7 +108,7 @@ export default class Note extends React.Component {
         <div >
             <div {...{ className: 'accordion-item__inner' }}>
               <div {...{ className: 'accordion-item__content' }}>
-                  <div {...{ className: 'accordion-item__body' }} onDoubleClick={this.toggleBodyEdit}>
+                  <div {...{ className: 'accordion-item__body' }} >
                    {this.bodyView()}
                   </div>
                   <Grid container>

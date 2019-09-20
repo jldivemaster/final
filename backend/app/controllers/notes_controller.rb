@@ -3,6 +3,7 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   def index
     @notes = Note.all
+    render json: { notes: @notes, message: "Note has been deleted" }
   end
 
   def new
@@ -36,7 +37,7 @@ class NotesController < ApplicationController
   def destroy
     @note.delete
     @notes = Note.all
-    render json: { notes: @notes, error: @note.errors.full_messages, message: "Note deleted" }
+    render json: { notes: @notes }
   end
 
   private

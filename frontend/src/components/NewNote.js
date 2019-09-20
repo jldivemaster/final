@@ -8,7 +8,8 @@ export default class NewNote extends Component {
       this.state = {
                 title: '',
                   ref: '',
-                  body: ''
+                  body: '',
+                  mod: this.props.mod
                     }
     };
 
@@ -17,9 +18,9 @@ export default class NewNote extends Component {
       this.autoExpand(e)
     };
 
-    handleClick = (e) => {
-      e.persist();
-      this.props.onNewNote(e)
+    handleClick = () => {
+      let note = this.state
+      this.props.onNewNote(note)
       this.props.onToggle()
     };
 
