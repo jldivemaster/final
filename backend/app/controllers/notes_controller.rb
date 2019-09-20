@@ -13,7 +13,7 @@ class NotesController < ApplicationController
   def create
     @note = Note.create(note_params)
     if @note.save
-      render json: { note: @note, message: "Note has been created." }
+      render json: { note: @note, message: 'Note has been created.' }
     else
       render json: { error: @note.errors.full_messages }
     end
@@ -37,7 +37,7 @@ class NotesController < ApplicationController
   def destroy
     @note.delete
     @notes = Note.all
-    render json: { notes: @notes }
+    render json: { notes: @notes, message: 'Note has been deleted.' }
   end
 
   private

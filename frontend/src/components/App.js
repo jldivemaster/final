@@ -234,8 +234,9 @@ handleUserEdit = (e) => {
         } else {
           this.setState({ message: data.message,
                           notes: [...data.notes] })
-        } })
-        // console.log(this.state.notes)
+        }
+       alert(data.message)
+      })
     };
 
     handleNoteEdit = (target) => {
