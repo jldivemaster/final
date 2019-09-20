@@ -189,14 +189,11 @@ handleUserEdit = (e) => {
 
 // ===========Updating Notes ============================
 
-  handleNoteCreate = (e) => {
-    // console.log(e.target.parentNode.parentNode.parentNode.parentNode.children)
-    let title = e.target.parentNode.parentNode.parentNode.parentNode.children[0].value;
-    let ref = e.target.parentNode.parentNode.parentNode.parentNode.children[1].value;
-    let body = e.target.parentNode.parentNode.parentNode.parentNode.children[2].value;
-    let arr = e.target.parentNode.parentNode.parentNode.previousSibling.innerText.split(" ");
-    let mod = arr[arr.length-1];
-    console.log(title, ref, body, arr, mod)
+  handleNoteCreate = (note) => {
+    let title = note.title;
+    let ref = note.ref;
+    let body = note.body;
+    let mod = note.mod;
     const dataObj = {
       'lab_title': title,
       'quick_ref': ref,
@@ -215,13 +212,14 @@ handleUserEdit = (e) => {
     fetch(notes_url, configObj).then(res => res.json()).then(data => {
       this.setState({
         notes: [...this.state.notes, data.note]
-                  })
+      });
       alert(data.message);
     })
   };
 
     handleNoteDelete = (id) => {
       console.log('fired', id)
+      alert("Note successfully deleted")
       const configObj = {
         method: 'DELETE',
         headers: {
@@ -229,13 +227,14 @@ handleUserEdit = (e) => {
           'Accept': 'application/json'
                 }
       }
-      fetch(notes_url + '/' + id, configObj).then(res => res.json()).then(data => {
+      fetch(notes_url + `/${id}`, configObj).then(res => res.json()).then(data => {
         if(data.error) {
           this.setState({ message: data.error })
         } else {
           this.setState({ message: data.message,
                           notes: [...this.data.notes] })
         } })
+        console.log(this.state.notes)
     };
 
     handleNoteEdit = (target) => {
